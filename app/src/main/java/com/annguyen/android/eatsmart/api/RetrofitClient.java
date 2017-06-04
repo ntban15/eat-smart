@@ -1,0 +1,61 @@
+package com.annguyen.android.eatsmart.api;
+
+import com.annguyen.android.eatsmart.BuildConfig;
+
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+/**
+ * Created by annguyen on 6/4/2017.
+ */
+
+public class RetrofitClient {
+
+    private static final String MASHAPE_BASE_URL =
+            "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/";
+
+    private Retrofit client;
+
+    public RetrofitClient() {
+
+        //build Interceptor to inject Header into request call
+        Interceptor interceptor = new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request originalRequest = chain.request();
+
+                //create a new Request with header from original one
+                Request newRequest = originalRequest.newBuilder()
+                        .addHeader("X-Mashape-Key", BuildConfig.MASHAPE_KEY)
+                        .addHeader("Accept", "application/json") //receive JSON-formatted response
+                        .build();
+
+                return chain.proceed(newRequest);
+            }
+        };
+
+        //build new OkHttpClient to plug it into Retrofit
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
+        //add OkHttpClient into retrofit
+        this.client = new Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(MASHAPE_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()) //use GSON converter to convert JSON -> POJO
+                .build();
+    }
+
+    //get searchComplexService
+    public SearchComplexService getSearchComplexService() {
+        return client.create(SearchComplexService.class);
+    }
+}

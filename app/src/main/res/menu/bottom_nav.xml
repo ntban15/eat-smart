@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/your_diet_option"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="@string/diets"/>
+    <item
+        android:id="@+id/recipe_list_option"
+        android:icon="@drawable/ic_local_dining_black_24dp"
+        android:title="@string/recipes"/>
+    <item
+        android:id="@+id/food_camera_option"
+        android:icon="@drawable/ic_photo_camera_black_24dp"
+        android:title="@string/camera"/>
+</menu>

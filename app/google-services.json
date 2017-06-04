@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "709595014491",
+    "firebase_url": "https://eatsmart-40694.firebaseio.com",
+    "project_id": "eatsmart-40694",
+    "storage_bucket": "eatsmart-40694.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709595014491:android:5435d92efde54b93",
+        "android_client_info": {
+          "package_name": "com.annguyen.android.eatsmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709595014491-ptlupj237k4kcodr784a0pnq5bmcbgrn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.annguyen.android.eatsmart",
+            "certificate_hash": "947ffc60d418f536631f98aeb4f1783923c2a93c"
+          }
+        },
+        {
+          "client_id": "709595014491-5dlfnp7ne8t893v30ms86adtil38hq7a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB98taiY2yD5qAh-adUdHQL_OZnFhSo8d0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709595014491-5dlfnp7ne8t893v30ms86adtil38hq7a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
