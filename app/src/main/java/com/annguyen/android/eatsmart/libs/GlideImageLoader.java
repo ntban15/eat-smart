@@ -20,6 +20,7 @@ public class GlideImageLoader implements ImageLoader {
         this.glideRequestManager = glideRequestManager;
     }
 
+    @Override
     public void setRequestListener(Object requestListener) {
         if (requestListener instanceof  RequestListener)
             this.requestListener = (RequestListener) requestListener;

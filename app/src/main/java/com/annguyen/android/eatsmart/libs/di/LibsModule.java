@@ -2,12 +2,15 @@ package com.annguyen.android.eatsmart.libs.di;
 
 import android.support.v4.app.Fragment;
 
+import com.annguyen.android.eatsmart.libs.FirebaseAuthentication;
 import com.annguyen.android.eatsmart.libs.GlideImageLoader;
 import com.annguyen.android.eatsmart.libs.GreenRobotEventBus;
+import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.annguyen.android.eatsmart.libs.base.EventBus;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Singleton;
 
@@ -55,5 +58,17 @@ public class LibsModule {
     @Singleton
     org.greenrobot.eventbus.EventBus provideGreenRobot() {
         return org.greenrobot.eventbus.EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    Authentication provideAuthentication(FirebaseAuth firebaseAuth) {
+        return new FirebaseAuthentication(firebaseAuth);
+    }
+
+    @Provides
+    @Singleton
+    FirebaseAuth provideFirebaseAuth() {
+        return FirebaseAuth.getInstance();
     }
 }

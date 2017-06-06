@@ -32,6 +32,9 @@ public class Diet {
 
     @Exclude
     public void addRecipe(Recipe recipe) {
-        recipeIds.contains(recipe.getId());
+        //check if recipe is already in the list
+        if (!recipeIds.contains(recipe.getId())) {
+            recipeIds.add(recipe.getId());
+        }
     }
 }

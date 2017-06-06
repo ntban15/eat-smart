@@ -5,6 +5,7 @@ import com.annguyen.android.eatsmart.diets.DietModelImpl;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.DietPresenterImpl;
 import com.annguyen.android.eatsmart.diets.ui.DietView;
+import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.annguyen.android.eatsmart.libs.base.EventBus;
 
 import javax.inject.Singleton;
@@ -39,7 +40,7 @@ public class DietFragmentModule {
 
     @Provides
     @Singleton
-    DietModel provideDietModel(EventBus eventBus) {
-        return new DietModelImpl(eventBus);
+    DietModel provideDietModel(EventBus eventBus, Authentication authentication) {
+        return new DietModelImpl(eventBus, authentication);
     }
 }

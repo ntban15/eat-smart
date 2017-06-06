@@ -1,7 +1,6 @@
 package com.annguyen.android.eatsmart.diets.ui;
 
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -18,7 +17,7 @@ import com.annguyen.android.eatsmart.EatSmartApp;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
-import com.annguyen.android.eatsmart.login.LoginActivity;
+import com.annguyen.android.eatsmart.login.ui.LoginActivity;
 
 import javax.inject.Inject;
 
