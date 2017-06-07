@@ -449,4 +449,17 @@ public class Recipe {
     public void setCarbs(String carbs) {
         this.carbs = carbs;
     }
+
+    public int getFatValue() {
+        String fatValue = fat.replaceAll("![0-9]", "");
+        return Integer.valueOf(fatValue);
+    }
+    public int getCarbsValue() {
+        String carbsValue = carbs.replaceAll("![0-9]", "");
+        return Integer.valueOf(carbsValue);
+    }
+    public int getProteinValue() {
+        String proteinValue = protein.replaceAll("![0-9]", "");
+        return Integer.valueOf(proteinValue);
+    }
 }
