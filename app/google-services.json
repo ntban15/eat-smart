@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "709595014491-6petc49k03fh8ga1q03cgm8e250d845k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.annguyen.android.eatsmart",
+            "certificate_hash": "84b5a0b10a0d000e062f02df67368b82ee584d5f"
+          }
+        },
+        {
           "client_id": "709595014491-ptlupj237k4kcodr784a0pnq5bmcbgrn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

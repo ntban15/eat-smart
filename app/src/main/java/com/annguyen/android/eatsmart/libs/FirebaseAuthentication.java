@@ -34,6 +34,11 @@ public class FirebaseAuthentication implements Authentication {
     }
 
     @Override
+    public String getUserUID() {
+        return checkLoginState() ? firebaseAuth.getCurrentUser().getUid() : null;
+    }
+
+    @Override
     public boolean checkLoginState() {
         return firebaseAuth.getCurrentUser() != null;
     }

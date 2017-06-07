@@ -13,4 +13,6 @@ public interface Authentication {
     void setOnLoginCompleteListener(Object onLoginCompleteListener);
 
     void logout();
+
+    String getUserUID();
 }
