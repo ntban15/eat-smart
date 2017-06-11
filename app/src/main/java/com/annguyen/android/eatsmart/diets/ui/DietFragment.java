@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.annguyen.android.eatsmart.EatSmartApp;
@@ -23,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -30,6 +33,10 @@ public class DietFragment extends Fragment implements DietView {
 
     @BindView(R.id.container_diet)
     RelativeLayout containerDiet;
+    @BindView(R.id.diets_progress_bar)
+    ProgressBar progressBar;
+    @BindView(R.id.create_diet)
+    Button createDietBtn;
 
     @Inject
     DietPresenter presenter;
@@ -103,5 +110,30 @@ public class DietFragment extends Fragment implements DietView {
                 Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(logoutIntent);
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showContent() {
+        createDietBtn.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideContent() {
+        createDietBtn.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.create_diet)
+    void onCreateDiet() {
+
     }
 }

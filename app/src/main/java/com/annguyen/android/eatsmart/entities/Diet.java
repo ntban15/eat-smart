@@ -14,50 +14,34 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Diet {
-    private String title;
-    private String dietType;
-    private String excludedIngredients; //separated by comma
-    private int maxCalories;
-    private int minCalories;
-    private int maxCarbs;
-    private int minCarbs;
-    private int maxFat;
-    private int minFat;
-    private int maxProtein;
-    private int minProtein;
-    private int currentCalories;
-    private int currentCarbs;
-    private int currentFat;
-    private int currentProtein;
-    private List<Long> recipes = new ArrayList<>();
+    private String title = "";
+    private String dietType = "";
+    private String excludedIngredients = ""; //separated by comma
+    private int maxCalories = 0;
+    private int minCalories = 0;
+    private int maxCarbs = 0;
+    private int minCarbs = 0;
+    private int maxFat = 0;
+    private int minFat = 0;
+    private int maxProtein = 0;
+    private int minProtein = 0;
+    @Exclude
+    private String dietKey = "";    //use this to keep track of which diet user clicks
 
     public Diet() {}
 
     @Exclude
-    public void addRecipe(Recipe recipe) {
-        //check if recipe is already in the list
-        if (!recipes.contains(recipe.getId())) {
-            recipes.add(recipe.getId());
-            currentCalories += recipe.getCalories();
-            currentCarbs += recipe.getCarbsValue();
-            currentFat += recipe.getFatValue();
-            currentProtein += recipe.getProteinValue();
-        }
+    public void setDietKey(String dietKey) {
+        this.dietKey = dietKey;
     }
 
     @Exclude
-    public void removeRecipe(Recipe recipe) {
-        if (!recipes.contains(recipe.getId())) {
-            recipes.remove(recipe.getId());
-            currentCalories -= recipe.getCalories();
-            currentCarbs -= recipe.getCarbsValue();
-            currentFat -= recipe.getFatValue();
-            currentProtein -= recipe.getProteinValue();
-        }
+    public String getDietKey() {
+        return this.dietKey;
     }
 
     @Exclude
-    public Map<String, Object> toMap() {
+    public Map<String, Object> toFullMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
         result.put("dietType", dietType);
@@ -70,12 +54,15 @@ public class Diet {
         result.put("minFat", minFat);
         result.put("maxProtein", maxProtein);
         result.put("minProtein", minProtein);
-        result.put("currentCalories", currentCalories);
-        result.put("currentCarbs", currentCarbs);
-        result.put("currentFat", currentFat);
-        result.put("currentProtein", currentProtein);
-        result.put("recipes", recipes);
+        return result;
+    }
 
+    @Exclude
+    public Map<String, Object> toMetaMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("dietType", dietType);
+        result.put("excludedIngredients", excludedIngredients);
         return result;
     }
 
@@ -165,45 +152,5 @@ public class Diet {
 
     public void setMinProtein(int minProtein) {
         this.minProtein = minProtein;
-    }
-
-    public int getCurrentCalories() {
-        return currentCalories;
-    }
-
-    public void setCurrentCalories(int currentCalories) {
-        this.currentCalories = currentCalories;
-    }
-
-    public int getCurrentCarbs() {
-        return currentCarbs;
-    }
-
-    public void setCurrentCarbs(int currentCarbs) {
-        this.currentCarbs = currentCarbs;
-    }
-
-    public int getCurrentFat() {
-        return currentFat;
-    }
-
-    public void setCurrentFat(int currentFat) {
-        this.currentFat = currentFat;
-    }
-
-    public int getCurrentProtein() {
-        return currentProtein;
-    }
-
-    public void setCurrentProtein(int currentProtein) {
-        this.currentProtein = currentProtein;
-    }
-
-    public List<Long> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(List<Long> recipes) {
-        this.recipes = recipes;
     }
 }

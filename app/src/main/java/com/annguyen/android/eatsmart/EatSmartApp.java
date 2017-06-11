@@ -11,6 +11,7 @@ import com.annguyen.android.eatsmart.login.di.DaggerLoginActivityComponent;
 import com.annguyen.android.eatsmart.login.di.LoginActivityComponent;
 import com.annguyen.android.eatsmart.login.di.LoginActivityModule;
 import com.annguyen.android.eatsmart.login.ui.LoginView;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by annguyen on 6/1/2017.
@@ -20,6 +21,11 @@ public class EatSmartApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initFirebaseDb();
+    }
+
+    private void initFirebaseDb() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     public DietFragmentComponent getDietFragmentComponent(DietView dietView) {

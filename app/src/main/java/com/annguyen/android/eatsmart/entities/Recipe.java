@@ -4,20 +4,17 @@ package com.annguyen.android.eatsmart.entities;
  * Created by annguyen on 6/3/2017.
  */
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@IgnoreExtraProperties
 public class Recipe {
-
-    //compare 2 recipe if they are the same using ids
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Recipe) {
-            return ((Recipe) obj).getId() == this.getId();
-        }
-        return false;
-    }
 
     @SerializedName("vegetarian")
     @Expose
@@ -137,6 +134,64 @@ public class Recipe {
     @Expose
     private String carbs;
 
+    @Exclude
+    public Map<String, Object> toFullMap() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("vegetarian", vegetarian);
+        result.put("vegan", vegan);
+        result.put("glutenFree", glutenFree);
+        result.put("dairyFree", dairyFree);
+        result.put("veryHealthy", veryHealthy);
+        result.put("cheap", cheap);
+        result.put("veryPopular", veryPopular);
+        result.put("sustainable", sustainable);
+        result.put("weightWatcherSmartPoints", weightWatcherSmartPoints);
+        result.put("gaps", gaps);
+        result.put("lowFodmap", lowFodmap);
+        result.put("ketogenic", ketogenic);
+        result.put("whole30", whole30);
+        result.put("servings", servings);
+        result.put("preparationMinutes", preparationMinutes);
+        result.put("cookingMinutes", cookingMinutes);
+        result.put("sourceUrl", sourceUrl);
+        result.put("spoonacularSourceUrl", spoonacularSourceUrl);
+        result.put("aggregateLikes", aggregateLikes);
+        result.put("spoonacularScore", spoonacularScore);
+        result.put("healthScore", healthScore);
+        result.put("creditText", creditText);
+        result.put("sourceName", sourceName);
+        result.put("pricePerServing", pricePerServing);
+        result.put("id", id);
+        result.put("title", title);
+        result.put("readyInMinutes", readyInMinutes);
+        result.put("image", image);
+        result.put("imageType", imageType);
+        result.put("cuisines", cuisines);
+        result.put("dishTypes", dishTypes);
+        result.put("instructions", instructions);
+        result.put("usedIngredientCount", usedIngredientCount);
+        result.put("missedIngredientCount", missedIngredientCount);
+        result.put("likes", likes);
+        result.put("calories", calories);
+        result.put("protein", protein);
+        result.put("fat", fat);
+        result.put("carbs", carbs);
+        return result;
+    }
+
+    @Exclude
+    public Map<String, Object> toMetaMap() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("readyInMinutes", readyInMinutes);
+        result.put("servings", servings);
+        result.put("image", image);
+        result.put("calories", calories);
+        result.put("protein", protein);
+        result.put("fat", fat);
+        result.put("carbs", carbs);
+        return result;
+    }
 
     public boolean isVegetarian() {
         return vegetarian;

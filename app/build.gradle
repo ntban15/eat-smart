@@ -83,16 +83,9 @@ dependencies {
     //Facebook SDK
     compile "com.facebook.android:facebook-android-sdk:$rootProject.ext.facebookSdkVersion"
 
-    //DBFlow
-//    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:$rootProject.ext.dbFlowVersion"
-//    compile "com.github.Raizlabs.DBFlow:dbflow-core:$rootProject.ext.dbFlowVersion"
-//    compile "com.github.Raizlabs.DBFlow:dbflow:$rootProject.ext.dbFlowVersion"
-
     //Firebase
     compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseVersion"
     compile "com.google.firebase:firebase-database:$rootProject.ext.firebaseVersion"
-
-
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

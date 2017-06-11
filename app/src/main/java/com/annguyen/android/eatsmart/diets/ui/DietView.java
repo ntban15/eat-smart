@@ -7,5 +7,8 @@ package com.annguyen.android.eatsmart.diets.ui;
 public interface DietView {
     void onError(String errMsg);
     void goToLogin();
-
+    void showProgressBar();
+    void hideProgressBar();
+    void showContent();
+    void hideContent();
 }

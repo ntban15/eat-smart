@@ -6,4 +6,17 @@
     android:id="@+id/container_diet"
     tools:context="com.annguyen.android.eatsmart.diets.ui.DietFragment">
 
+    <Button
+        android:id="@+id/create_diet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CREATE DIET"/>
+
+    <ProgressBar
+        android:id="@+id/diets_progress_bar"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
