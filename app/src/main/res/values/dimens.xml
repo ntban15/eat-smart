@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bottom_bar_height">56dp</dimen>
+    <dimen name="float_button_margin">16dp</dimen>
+    <dimen name="card_view_height">100dp</dimen>
 </resources>

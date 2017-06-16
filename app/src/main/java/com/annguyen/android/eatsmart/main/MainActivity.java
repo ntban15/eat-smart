@@ -25,11 +25,20 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
+    private DietFragment dietFragment;
+    private RecipeListFragment recipeListFragment;
+    private CameraFragment cameraFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        //create 3 fragments for the app
+        dietFragment = DietFragment.newInstance();
+        recipeListFragment = RecipeListFragment.newInstance();
+        cameraFragment = CameraFragment.newInstance();
 
         //setup toolbar
         toolbar.setTitle("");   //enable set title later
@@ -60,15 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()) {
                     case R.id.your_diet_option:
                         setupDietUI();
-                        chosenFragment = DietFragment.newInstance();
+                        chosenFragment = dietFragment;
                         break;
                     case R.id.recipe_list_option:
                         setupRecipeListUI();
-                        chosenFragment = RecipeListFragment.newInstance();
+                        chosenFragment = recipeListFragment;
                         break;
                     case R.id.food_camera_option:
                         setupCameraUI();
-                        chosenFragment = CameraFragment.newInstance();
+                        chosenFragment = cameraFragment;
                         break;
                 }
 
@@ -102,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFirstView() {
-
-        DietFragment dietFragment = DietFragment.newInstance();
-
         //always go into diet first
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, dietFragment)

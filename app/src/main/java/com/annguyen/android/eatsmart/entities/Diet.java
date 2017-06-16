@@ -27,8 +27,20 @@ public class Diet {
     private int minProtein = 0;
     @Exclude
     private String dietKey = "";    //use this to keep track of which diet user clicks
+    @Exclude
+    private boolean active = false;
 
     public Diet() {}
+
+    @Exclude
+    public boolean isActive() {
+        return active;
+    }
+
+    @Exclude
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Exclude
     public void setDietKey(String dietKey) {

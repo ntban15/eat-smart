@@ -3,8 +3,11 @@ package com.annguyen.android.eatsmart.diets.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +21,7 @@ import android.widget.RelativeLayout;
 import com.annguyen.android.eatsmart.EatSmartApp;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
+import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
 import com.annguyen.android.eatsmart.login.ui.LoginActivity;
 
@@ -29,14 +33,16 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class DietFragment extends Fragment implements DietView {
+public class DietFragment extends Fragment implements DietView, OnDietItemClickListener {
 
     @BindView(R.id.container_diet)
-    RelativeLayout containerDiet;
+    CoordinatorLayout containerDiet;
     @BindView(R.id.diets_progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.create_diet)
-    Button createDietBtn;
+    FloatingActionButton createDietBtn;
+    @BindView(R.id.diet_list)
+    RecyclerView dietList;
 
     @Inject
     DietPresenter presenter;
@@ -60,11 +66,11 @@ public class DietFragment extends Fragment implements DietView {
         unbinder = ButterKnife.bind(this, view);
         //setup dependency injection
         setupInjection();
+        //allow fragment to add options
+        setHasOptionsMenu(true);
         //setup presenter
         presenter.start();
 
-        //allow fragment to add options
-        setHasOptionsMenu(true);
 
         return view;
     }
@@ -135,5 +141,15 @@ public class DietFragment extends Fragment implements DietView {
     @OnClick(R.id.create_diet)
     void onCreateDiet() {
 
+    }
+
+    @Override
+    public void OnItemClick(String dietKey) {
+        //TODO: START NEW DIET DETAIL ACTIVITY
+    }
+
+    @Override
+    public void OnItemLongClick() {
+        //TODO: START CONTEXTUAL ACTION BAR
     }
 }
