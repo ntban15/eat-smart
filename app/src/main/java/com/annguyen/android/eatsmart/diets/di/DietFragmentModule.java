@@ -4,9 +4,15 @@ import com.annguyen.android.eatsmart.diets.DietModel;
 import com.annguyen.android.eatsmart.diets.DietModelImpl;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.DietPresenterImpl;
+import com.annguyen.android.eatsmart.diets.adapters.DietListAdapter;
+import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
 import com.annguyen.android.eatsmart.diets.ui.DietView;
+import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.annguyen.android.eatsmart.libs.base.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -21,9 +27,11 @@ import dagger.Provides;
 public class DietFragmentModule {
 
     private DietView dietView;
+    private OnDietItemClickListener onDietItemClickListener;
 
-    public DietFragmentModule(DietView dietView) {
+    public DietFragmentModule(DietView dietView, OnDietItemClickListener onDietItemClickListener) {
         this.dietView = dietView;
+        this.onDietItemClickListener = onDietItemClickListener;
     }
 
     @Provides
@@ -42,5 +50,23 @@ public class DietFragmentModule {
     @Singleton
     DietModel provideDietModel(EventBus eventBus, Authentication authentication) {
         return new DietModelImpl(eventBus, authentication);
+    }
+
+    @Provides
+    @Singleton
+    DietListAdapter provideDietListAdapter(List<Diet> dietDataset, OnDietItemClickListener onDietItemClickListener) {
+        return new DietListAdapter(dietDataset, onDietItemClickListener);
+    }
+
+    @Provides
+    @Singleton
+    OnDietItemClickListener provideOnDietItemClickListener() {
+        return onDietItemClickListener;
+    }
+
+    @Provides
+    @Singleton
+    List<Diet> provideDietDataset() {
+        return new ArrayList<>();
     }
 }

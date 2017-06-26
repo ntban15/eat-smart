@@ -8,7 +8,12 @@ import com.annguyen.android.eatsmart.diets.events.LogoutEvent;
 
 public interface DietPresenter {
     void start();
+
     void stop();
+
     void onLogoutSelected();
+
     void onLogoutEvent(LogoutEvent logoutEvent);
+
+    void initUI();
 }

@@ -2,6 +2,7 @@ package com.annguyen.android.eatsmart;
 
 import android.app.Application;
 
+import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
 import com.annguyen.android.eatsmart.diets.di.DaggerDietFragmentComponent;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentModule;
@@ -28,9 +29,9 @@ public class EatSmartApp extends Application {
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
-    public DietFragmentComponent getDietFragmentComponent(DietView dietView) {
+    public DietFragmentComponent getDietFragmentComponent(DietView dietView, OnDietItemClickListener listener) {
         return DaggerDietFragmentComponent.builder()
-                .dietFragmentModule(new DietFragmentModule(dietView))
+                .dietFragmentModule(new DietFragmentModule(dietView, listener))
                 .libsModule(new LibsModule(null))
                 .build();
     }

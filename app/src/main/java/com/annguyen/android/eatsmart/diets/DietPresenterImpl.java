@@ -38,6 +38,12 @@ public class DietPresenterImpl implements DietPresenter {
         dietModel.logout();
     }
 
+
+    @Override
+    public void initUI() {
+        dietModel.getDietsMeta();
+    }
+
     @Subscribe
     @Override
     public void onLogoutEvent(LogoutEvent logoutEvent) {

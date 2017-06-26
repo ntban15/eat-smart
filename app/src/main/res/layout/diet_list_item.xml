@@ -44,22 +44,13 @@
             android:text="@string/excluded_ingredients"
             android:layout_below="@id/diet_type"/>
 
-        <ImageView
+        <RadioButton
             android:id="@+id/diet_active_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_circle_green_16dp"
             android:layout_alignParentEnd="true"
-            android:visibility="gone"/>
-
-        <ImageView
-            android:id="@+id/diet_attention_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_circle_red_16dp"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/diet_active_indicator"
-            android:visibility="gone"/>
+            android:layout_centerVertical="true"
+            android:checked="true"/>
 
     </RelativeLayout>
 

@@ -5,6 +5,11 @@ package com.annguyen.android.eatsmart.diets.adapters;
  */
 
 public interface OnDietItemClickListener {
-    void OnItemClick(String dietKey);
+
+    void OnItemClick(String dietKey, int pos);
+
     void OnItemLongClick();
+
+    void onSwitchClick(String dietKey, int pos);
+
 }

@@ -4,14 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.entities.Diet;
 
 import java.util.List;
-import java.util.ListIterator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,9 +21,15 @@ import butterknife.ButterKnife;
 
 public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.CustomViewHolder> {
 
-    int activePos;
-    List<Diet> dietDataset;
-    OnDietItemClickListener onDietItemClickListener;
+    private int activePos;
+
+    private List<Diet> dietDataset;
+    private OnDietItemClickListener onDietItemClickListener;
+
+    public DietListAdapter(List<Diet> dietDataset, OnDietItemClickListener onDietItemClickListener) {
+        this.dietDataset = dietDataset;
+        this.onDietItemClickListener = onDietItemClickListener;
+    }
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,14 +51,14 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
         //check if diet is active
         if (curDiet.isActive()) {
             activePos = holder.getAdapterPosition();
-            holder.dietActive.setVisibility(View.VISIBLE);
+            holder.dietActive.setChecked(true);
         }
         else {
-            holder.dietActive.setVisibility(View.GONE);
+            holder.dietActive.setChecked(false);
         }
 
         //set click listener
-        holder.setOnDietItemClickListener(onDietItemClickListener, curDiet);
+        holder.setOnDietItemClickListener(onDietItemClickListener, curDiet, position);
     }
 
     public void addNewDiet(Diet diet) {
@@ -61,47 +66,39 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
         notifyItemInserted(dietDataset.size() - 1);
     }
 
-    public void removeDiet(String dietKey) {
+    public void removeDiet(int pos) {
         //index of removed diet
-        int removedDiet = 0;
-
-        //use list iterator to surf through the list and find dietKey match
-        ListIterator<Diet> dietIter = dietDataset.listIterator();
-        while (dietIter.hasNext()) {
-            removedDiet = dietIter.nextIndex();
-            Diet nextDiet = dietIter.next();
-            //if match
-            if (nextDiet.getDietKey().equals(dietKey)) {
-                //remove the last diet return by next (which is nextDiet)
-                dietIter.remove();
-                break;
-            }
-        }
-
+        dietDataset.remove(pos);
         //notify the adapter of the removal
-        notifyItemRemoved(removedDiet);
+        notifyItemRemoved(pos);
     }
 
-    public void setActiveDiet(String dietKey) {
-        //set diet given in arg active
-        ListIterator<Diet> dietIter = dietDataset.listIterator();
-        while (dietIter.hasNext()) {
-            activePos = dietIter.nextIndex();
-            Diet nextDiet = dietIter.next();
-            if (nextDiet.getDietKey().equals(dietKey)) {
-                nextDiet.setActive(true);
-                break;
-            }
+    public void setActiveDiet(int pos) {
+
+        if (pos == activePos) {
+            unsetActiveDiet();
+            return;
+        }
+        else {
+            unsetActiveDiet();
         }
 
+        //set diet given in arg active
+        dietDataset.get(pos).setActive(true);
         //notify the adapter of the change
-        notifyItemChanged(activePos);
+        notifyItemChanged(pos);
     }
 
     public void unsetActiveDiet() {
         //set last active diet unactive
         dietDataset.get(activePos).setActive(false);
         notifyItemChanged(activePos);
+        activePos = 0;
+    }
+
+    public void setDietDataset(List<Diet> dietList) {
+        dietDataset.addAll(dietList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -119,9 +116,7 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
         @BindView(R.id.diet_excluded)
         TextView dietExclude;
         @BindView(R.id.diet_active_indicator)
-        ImageView dietActive;
-        @BindView(R.id.diet_attention_indicator)
-        ImageView dietAttention;
+        RadioButton dietActive;
 
         public CustomViewHolder(View itemView) {
             super(itemView);
@@ -129,12 +124,22 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
             dietItemView = itemView;
         }
 
-        void setOnDietItemClickListener(final OnDietItemClickListener listener, final Diet diet) {
+        void setOnDietItemClickListener(final OnDietItemClickListener listener,
+                                        final Diet diet, final int pos) {
+
+            //on radio button click
+            dietActive.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onSwitchClick(diet.getDietKey(), pos);
+                }
+            });
+
             //on one click
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.OnItemClick(diet.getDietKey());
+                    listener.OnItemClick(diet.getDietKey(), pos);
                 }
             });
 
