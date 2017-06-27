@@ -5,8 +5,8 @@ import com.annguyen.android.eatsmart.entities.Recipe;
 import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.annguyen.android.eatsmart.libs.base.RealtimeDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -28,8 +28,11 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     private Authentication authentication;
     private DatabaseReference dataRef;
     private String userUID;
+
     private OnCompleteListener onCompleteListener;
     private ValueEventListener valueEventListener;
+    private ChildEventListener dietMetaListListener;
+    private ValueEventListener activeDietListener;
 
     public FirebaseRealtimeDatabase(FirebaseDatabase firebaseDatabase, Authentication authentication) {
         this.firebaseDatabase = firebaseDatabase;
@@ -162,8 +165,12 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     @Override
     public void getActiveDiet() {
         DatabaseReference activeDiet = dataRef.child("users").child(userUID).child("activeDiet");
-        if (valueEventListener != null)
+        if (valueEventListener != null) {
             activeDiet.addListenerForSingleValueEvent(valueEventListener);
+        }
+        if (activeDietListener != null) {
+            activeDiet.addValueEventListener(activeDietListener);
+        }
     }
 
     @Override
@@ -186,10 +193,10 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
 
     //for getting list of diets meta info to populate UI
     @Override
-    public void getDietsMeta() {
+    public void getDietMeta() {
         DatabaseReference dietsMetaRef = dataRef.child("users").child(userUID).child("diets");
-        if (valueEventListener != null) {
-            dietsMetaRef.addListenerForSingleValueEvent(valueEventListener);
+        if (dietMetaListListener != null) {
+            dietsMetaRef.addChildEventListener(dietMetaListListener);
         }
     }
 
@@ -203,5 +210,31 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     public void setValueListener(Object valueListener) {
         if (valueListener instanceof ValueEventListener)
             this.valueEventListener = (ValueEventListener) valueListener;
+    }
+
+    @Override
+    public void setOnDietMetaListListener(Object childListener) {
+        if (childListener instanceof ChildEventListener)
+            this.dietMetaListListener = (ChildEventListener) childListener;
+    }
+
+    @Override
+    public void removeOnDietMetaListListener() {
+        DatabaseReference dietsMetaRef = dataRef.child("users").child(userUID).child("diets");
+        if (dietMetaListListener != null)
+            dietsMetaRef.removeEventListener(dietMetaListListener);
+    }
+
+    @Override
+    public void setActiveDietListener(Object activeDietListener) {
+        if (activeDietListener instanceof  ValueEventListener)
+            this.activeDietListener = (ValueEventListener) activeDietListener;
+    }
+
+    @Override
+    public void removeActiveDietListener() {
+        DatabaseReference activeDiet = dataRef.child("users").child(userUID).child("activeDiet");
+        if (valueEventListener != null)
+            activeDiet.removeEventListener(valueEventListener);
     }
 }

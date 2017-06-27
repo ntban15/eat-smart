@@ -120,7 +120,7 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
 
         public CustomViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
             dietItemView = itemView;
         }
 

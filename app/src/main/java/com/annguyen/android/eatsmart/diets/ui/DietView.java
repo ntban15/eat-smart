@@ -23,4 +23,8 @@ public interface DietView {
     void hideContent();
 
     void setDietContent(List<Diet> dietList);
+
+    void addNewDiet(Diet newDiet);
+
+    void setActiveDiet(String dietKey);
 }

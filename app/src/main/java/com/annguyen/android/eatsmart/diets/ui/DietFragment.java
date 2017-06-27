@@ -77,6 +77,7 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
         presenter.start();
         //set up recycler view
         setupRecyclerView();
+        //init UI with list of diets
         presenter.initUI();
 
         return view;
@@ -153,6 +154,11 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
     @Override
     public void setDietContent(List<Diet> dietList) {
         adapter.setDietDataset(dietList);
+    }
+
+    @Override
+    public void addNewDiet(Diet newDiet) {
+        adapter.addNewDiet(newDiet);
     }
 
     @OnClick(R.id.create_diet)

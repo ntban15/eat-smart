@@ -8,4 +8,6 @@ public interface DietModel {
     void logout();
 
     void getDietsMeta();
+
+    void stop();
 }

@@ -2,6 +2,7 @@ package com.annguyen.android.eatsmart.libs.base;
 
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -27,8 +28,16 @@ public interface RealtimeDatabase {
 
     void getDietRecipes(String dietKey); //get list of recipe keys the diet is using
     void getActiveDiet();
-    void getDietsMeta(); //for getting list of diets (meta info) to populate UI
+    void getDietMeta(); //for getting list of diets (meta info) to populate UI
 
     void setOnCompleteListener(Object onCompleteListener);
     void setValueListener(Object valueListener);
+
+    void setOnDietMetaListListener(Object childListener);
+
+    void removeOnDietMetaListListener();
+
+    void setActiveDietListener(Object activeDietListener);
+
+    void removeActiveDietListener();
 }
