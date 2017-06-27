@@ -13,9 +13,9 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/main_toolbar"
+            style="@style/AppTheme.PopupOverlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AppTheme.PopupOverlay"
             app:layout_scrollFlags="enterAlways">
 
         </android.support.v7.widget.Toolbar>
