@@ -9,6 +9,8 @@
     <string name="diets">Diets</string>
     <string name="your_diets">Your diets</string>
     <string name="logout">Logout</string>
+    <string name="discard">DISCARD</string>
+    <string name="analyze">ANALYZE</string>
     <string name="diet_type">Diet type: %s</string>
     <string name="excluded_ingredients">Excluded ingredients: %s</string>
     <string name="active">Active</string>

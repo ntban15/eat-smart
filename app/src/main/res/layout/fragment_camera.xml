@@ -1,13 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.annguyen.android.eatsmart.camera.ui.CameraFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <TextureView
+        android:id="@+id/texture"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/camera" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_takepicture"
+        android:layout_alignParentTop="true"/>
+    <ImageButton
+        android:id="@+id/btn_takepicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_camera_black_48dp"
+        android:background="@null"
+        android:layout_gravity="center|bottom"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/discardBtn"
+            android:clickable="true"
+            android:text="@string/discard"
+            android:layout_weight="1"
+            android:textSize="43sp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/analyzeBtn"
+            android:text="@string/analyze"
+            android:layout_weight="1"
+            android:textSize="43sp"
+            android:visibility="invisible"/>
+    </LinearLayout>
 
 </FrameLayout>
