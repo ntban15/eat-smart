@@ -5,9 +5,12 @@ package com.annguyen.android.eatsmart.entities;
  */
 
 import java.util.List;
+
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@IgnoreExtraProperties
 public class Step {
 
     @SerializedName("number")

@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,4 +7,25 @@
     android:id="@+id/container_diet"
     tools:context="com.annguyen.android.eatsmart.diets.ui.DietFragment">
 
-</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/diet_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/create_diet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/float_button_margin"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_add_black_24dp"/>
+
+    <ProgressBar
+        android:id="@+id/diets_progress_bar"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+</android.support.design.widget.CoordinatorLayout>

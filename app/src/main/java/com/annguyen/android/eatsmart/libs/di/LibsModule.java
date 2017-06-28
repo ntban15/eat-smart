@@ -3,14 +3,17 @@ package com.annguyen.android.eatsmart.libs.di;
 import android.support.v4.app.Fragment;
 
 import com.annguyen.android.eatsmart.libs.FirebaseAuthentication;
+import com.annguyen.android.eatsmart.libs.FirebaseRealtimeDatabase;
 import com.annguyen.android.eatsmart.libs.GlideImageLoader;
 import com.annguyen.android.eatsmart.libs.GreenRobotEventBus;
 import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.annguyen.android.eatsmart.libs.base.EventBus;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
+import com.annguyen.android.eatsmart.libs.base.RealtimeDatabase;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Singleton;
 
@@ -70,5 +73,17 @@ public class LibsModule {
     @Singleton
     FirebaseAuth provideFirebaseAuth() {
         return FirebaseAuth.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    RealtimeDatabase provideRealtimeDatabase(FirebaseDatabase firebaseDatabase, Authentication authentication) {
+        return new FirebaseRealtimeDatabase(firebaseDatabase, authentication);
+    }
+
+    @Provides
+    @Singleton
+    FirebaseDatabase provideFirebaseDatabase() {
+        return FirebaseDatabase.getInstance();
     }
 }

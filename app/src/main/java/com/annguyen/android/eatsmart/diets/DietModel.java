@@ -6,4 +6,8 @@ package com.annguyen.android.eatsmart.diets;
 
 public interface DietModel {
     void logout();
+
+    void getDietsMeta();
+
+    void stop();
 }

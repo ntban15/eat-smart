@@ -3,36 +3,54 @@ package com.annguyen.android.eatsmart.diets.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ProgressBar;
 
 import com.annguyen.android.eatsmart.EatSmartApp;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
+import com.annguyen.android.eatsmart.diets.adapters.DietListAdapter;
+import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
+import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.login.ui.LoginActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class DietFragment extends Fragment implements DietView {
+public class DietFragment extends Fragment implements DietView, OnDietItemClickListener {
 
     @BindView(R.id.container_diet)
-    RelativeLayout containerDiet;
+    CoordinatorLayout containerDiet;
+    @BindView(R.id.diets_progress_bar)
+    ProgressBar progressBar;
+    @BindView(R.id.create_diet)
+    FloatingActionButton createDietBtn;
+    @BindView(R.id.diet_list)
+    RecyclerView dietList;
 
     @Inject
     DietPresenter presenter;
+    @Inject
+    DietListAdapter adapter;
 
     //to unbind view from ButterKnife
     Unbinder unbinder;
@@ -53,18 +71,26 @@ public class DietFragment extends Fragment implements DietView {
         unbinder = ButterKnife.bind(this, view);
         //setup dependency injection
         setupInjection();
-        //setup presenter
-        presenter.start();
-
         //allow fragment to add options
         setHasOptionsMenu(true);
+        //setup presenter
+        presenter.start();
+        //set up recycler view
+        setupRecyclerView();
+        //init UI with list of diets
+        presenter.initUI();
 
         return view;
     }
 
+    private void setupRecyclerView() {
+        dietList.setAdapter(adapter);
+        dietList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    }
+
     private void setupInjection() {
         EatSmartApp application = (EatSmartApp) getActivity().getApplication();
-        DietFragmentComponent component = application.getDietFragmentComponent(this);
+        DietFragmentComponent component = application.getDietFragmentComponent(this, this);
         component.inject(this);
     }
 
@@ -103,5 +129,56 @@ public class DietFragment extends Fragment implements DietView {
                 Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(logoutIntent);
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showContent() {
+        createDietBtn.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideContent() {
+        createDietBtn.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setDietContent(List<Diet> dietList) {
+        adapter.setDietDataset(dietList);
+    }
+
+    @Override
+    public void addNewDiet(Diet newDiet) {
+        adapter.addNewDiet(newDiet);
+    }
+
+    @OnClick(R.id.create_diet)
+    void onCreateDiet() {
+
+    }
+
+    @Override
+    public void OnItemClick(String dietKey, int pos) {
+        //TODO: START NEW DIET DETAIL ACTIVITY
+    }
+
+    @Override
+    public void onSwitchClick(String dietKey, int pos) {
+        //TODO: SET ACTIVE OR INACTIVE
+        //presenter.setActive(dietKey, pos);
+    }
+
+    @Override
+    public void OnItemLongClick() {
+        //TODO: START CONTEXTUAL ACTION BAR
     }
 }
