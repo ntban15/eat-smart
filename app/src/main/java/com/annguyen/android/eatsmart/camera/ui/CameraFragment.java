@@ -18,7 +18,6 @@ import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -38,10 +37,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
+import com.annguyen.android.eatsmart.camera.CameraPresenter;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
@@ -54,6 +52,9 @@ import java.util.List;
  */
 public class CameraFragment extends Fragment implements CameraView {
 
+    /**
+     * Variable definitions for custom camera (Google Camera2 API)
+     */
     private static final String TAG = "AndroidCameraApi";
     private ImageButton takePictureButton;
     private TextureView textureView;
@@ -75,6 +76,12 @@ public class CameraFragment extends Fragment implements CameraView {
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+
+    /**
+     * Variable definitions for Camera fragment's functions
+     */
+
+    private CameraPresenter cameraPresenter;
 
     public static CameraFragment newInstance() {
         return new CameraFragment();
@@ -176,20 +183,10 @@ public class CameraFragment extends Fragment implements CameraView {
         CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         try {
             //the CameraCharacteristics object will provide all of the information of the device's camera
-            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
+            //CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
 
-            Size[] jpegSizes = null;
-            if (characteristics != null) {
-                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
-            }
-            int width = 640;
-            int height = 480;
-            if (jpegSizes != null && 0 < jpegSizes.length) {
-                width = jpegSizes[0].getWidth();
-                height = jpegSizes[0].getHeight();
-            }
 
-            ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
+            ImageReader reader = ImageReader.newInstance(imageDimension.getWidth(), imageDimension.getHeight(), ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<>(2);
 
             outputSurfaces.add(reader.getSurface());

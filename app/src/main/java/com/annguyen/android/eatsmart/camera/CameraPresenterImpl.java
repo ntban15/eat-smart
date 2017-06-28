@@ -14,11 +14,6 @@ public class CameraPresenterImpl implements CameraPresenter {
     private CameraManager cameraManager;
 
     @Override
-    public void initCamera() {
-
-    }
-
-    @Override
     public void onStart() {
         //register to the EventBus
         eventBus.register(this);
