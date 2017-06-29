@@ -3,6 +3,7 @@ package com.annguyen.android.eatsmart.camera.ui;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -33,15 +34,12 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
-import com.annguyen.android.eatsmart.camera.CameraPresenter;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,13 +48,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CameraFragment extends Fragment implements CameraView {
+public class CameraFragment extends Fragment {
 
     /**
      * Variable definitions for custom camera (Google Camera2 API)
      */
     private static final String TAG = "AndroidCameraApi";
     private ImageButton takePictureButton;
+    //TextureView is where the camera preview will be displayed
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
@@ -77,11 +76,6 @@ public class CameraFragment extends Fragment implements CameraView {
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
 
-    /**
-     * Variable definitions for Camera fragment's functions
-     */
-
-    private CameraPresenter cameraPresenter;
 
     public static CameraFragment newInstance() {
         return new CameraFragment();
@@ -104,9 +98,13 @@ public class CameraFragment extends Fragment implements CameraView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         textureView = (TextureView) view.findViewById(R.id.texture);
         assert textureView != null;
+
         textureView.setSurfaceTextureListener(textureListener);
+
         takePictureButton = (ImageButton) view.findViewById(R.id.btn_takepicture);
         assert takePictureButton != null;
+
+        //set OnClickListener for the takePictureButton.
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +113,7 @@ public class CameraFragment extends Fragment implements CameraView {
         });
     }
 
+    //surfaceTextureListener for the camera's texture (where the camera preview will be displayed)
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -124,7 +123,6 @@ public class CameraFragment extends Fragment implements CameraView {
 
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-            // Transform you image captured size according to the surface width and height
         }
 
         @Override
@@ -140,8 +138,6 @@ public class CameraFragment extends Fragment implements CameraView {
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice camera) {
-            //This is called when the camera is open
-            Log.e(TAG, "onOpened");
             cameraDevice = camera;
             createCameraPreview();
         }
@@ -176,15 +172,19 @@ public class CameraFragment extends Fragment implements CameraView {
     }
 
     protected void takePicture() {
-        if (null == cameraDevice) {
-            Log.e(TAG, "cameraDevice is null");
+
+        //cameraDevice is null means the application can't get the system camera. If it happens, the function will return nothing
+        if (null == cameraDevice)
             return;
-        }
+
         CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         try {
             //the CameraCharacteristics object will provide all of the information of the device's camera
-            //CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
-
+            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
+            Size[] jpegSizes = null;
+            if (characteristics != null) {
+                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
+            }
 
             ImageReader reader = ImageReader.newInstance(imageDimension.getWidth(), imageDimension.getHeight(), ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<>(2);
@@ -206,35 +206,18 @@ public class CameraFragment extends Fragment implements CameraView {
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
-                    Image image = null;
+                    Image image;
                     try {
                         image = reader.acquireLatestImage();
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
 
-                        //TODO: replace save function with discard function or analyze function
-                        save(bytes);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        Intent intent = new Intent(getContext(), ImageProcess.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        intent.putExtra("image_bytes", bytes);
+                        CameraFragment.this.startActivity(intent);
                     } finally {
-                        if (image != null) {
-                            image.close();
-                        }
-                    }
-                }
-
-                //TODO: replace with discard function and analyze function
-                private void save(byte[] bytes) throws IOException {
-                    OutputStream output = null;
-                    try {
-
-                    } finally {
-                        if (null != output) {
-                            output.close();
-                        }
+                        //nothing have to be done here
                     }
                 }
             };
@@ -330,7 +313,7 @@ public class CameraFragment extends Fragment implements CameraView {
 
     private void openCamera() {
         CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
-        Log.e(TAG, "is camera open");
+
         try {
             cameraId = manager.getCameraIdList()[0];
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
@@ -342,7 +325,6 @@ public class CameraFragment extends Fragment implements CameraView {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-        Log.e(TAG, "openCamera X");
     }
 
     protected void updatePreview() {
@@ -372,6 +354,7 @@ public class CameraFragment extends Fragment implements CameraView {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 // close the app
                 Toast.makeText(getContext(), "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                closeCamera();
             }
             else {
                 Toast.makeText(getContext(), "Permission granted", Toast.LENGTH_SHORT).show();
@@ -383,18 +366,17 @@ public class CameraFragment extends Fragment implements CameraView {
     @Override
     public void onResume() {
         super.onResume();
-        Log.e(TAG, "onResume");
+
         startBackgroundThread();
-        if (textureView.isAvailable()) {
+
+        if (textureView.isAvailable())
             checkPermissionCamera();
-        } else {
+        else
             textureView.setSurfaceTextureListener(textureListener);
-        }
     }
 
     @Override
     public void onPause() {
-        Log.e(TAG, "onPause");
         //closeCamera();
         stopBackgroundThread();
         super.onPause();

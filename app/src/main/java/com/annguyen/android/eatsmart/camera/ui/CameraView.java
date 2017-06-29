@@ -5,4 +5,6 @@ package com.annguyen.android.eatsmart.camera.ui;
  */
 
 public interface CameraView {
+    void postTakePictureUIupdate();
+    void preTakePictureUIupdate();
 }
