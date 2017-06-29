@@ -7,5 +7,5 @@ package com.annguyen.android.eatsmart.camera;
 public interface CameraPresenter {
     void onStart();
     void onStop();
-    void takePicture();
+    void onAnalyzeButtonClicked();
 }

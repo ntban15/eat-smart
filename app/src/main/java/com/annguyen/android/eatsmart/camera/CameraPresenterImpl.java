@@ -11,7 +11,11 @@ import com.annguyen.android.eatsmart.libs.base.EventBus;
 public class CameraPresenterImpl implements CameraPresenter {
 
     private EventBus eventBus;
-    private CameraManager cameraManager;
+    private byte[] bytes;
+
+    public CameraPresenterImpl(byte[] bytes) {
+        this.bytes = bytes;
+    }
 
     @Override
     public void onStart() {
@@ -26,7 +30,7 @@ public class CameraPresenterImpl implements CameraPresenter {
     }
 
     @Override
-    public void takePicture() {
+    public void onAnalyzeButtonClicked() {
 
     }
 }
