@@ -14,4 +14,8 @@
     <string name="diet_type">Diet type: %s</string>
     <string name="excluded_ingredients">Excluded ingredients: %s</string>
     <string name="active">Active</string>
+    <string name="detail_diet_name">Diet name:</string>
+    <string name="diet_detail_type">Diet type:</string>
+    <string name="diet_detail_excluded">Excluded ingredients: </string>
+    <string name="add">Add</string>
 </resources>

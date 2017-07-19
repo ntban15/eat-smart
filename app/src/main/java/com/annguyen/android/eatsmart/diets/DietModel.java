@@ -10,4 +10,6 @@ public interface DietModel {
     void getDietsMeta();
 
     void stop();
+
+    void setActive(String dietKey);
 }

@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 
 public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.CustomViewHolder> {
 
-    private int activePos;
+    private int activePos = -1;
 
     private List<Diet> dietDataset;
     private OnDietItemClickListener onDietItemClickListener;
@@ -74,15 +74,12 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
     }
 
     public void setActiveDiet(int pos) {
-
         if (pos == activePos) {
             unsetActiveDiet();
             return;
         }
-        else {
-            unsetActiveDiet();
-        }
 
+        unsetActiveDiet();
         //set diet given in arg active
         dietDataset.get(pos).setActive(true);
         //notify the adapter of the change
@@ -91,9 +88,12 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
 
     public void unsetActiveDiet() {
         //set last active diet unactive
+        if (activePos < 0)
+            return;
+
         dietDataset.get(activePos).setActive(false);
         notifyItemChanged(activePos);
-        activePos = 0;
+        activePos = -1;
     }
 
     public void setDietDataset(List<Diet> dietList) {

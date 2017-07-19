@@ -42,7 +42,30 @@ public class DietModelImpl implements DietModel {
     @Override
     public void stop() {
         database.removeOnDietMetaListListener();
-        database.removeActiveDietListener();
+        //database.removeActiveDietListener();
+    }
+
+    @Override
+    public void setActive(final String dietKey) {
+        ValueEventListener activeDietSingleListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String activeDietKey = (String) dataSnapshot.getValue();
+
+                if (activeDietKey == null)
+                    database.setActiveDiet(dietKey);
+                else if (activeDietKey.equals(dietKey))
+                    database.setActiveDiet(null);
+                else
+                    database.setActiveDiet(dietKey);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+
+        database.setValueListener(activeDietSingleListener);
+        database.getActiveDiet();
     }
 
     @Override
@@ -81,7 +104,7 @@ public class DietModelImpl implements DietModel {
                             newDiet.setActive(true);
                     }
                 //if get diet is success -> attach listener to active diet
-                attachActiveDietListener();
+                //attachActiveDietListener();
                 eventBus.post(new DietMetaEvent(DietMetaEvent.DIET_META_SUCCESS, null, newDiet));
             }
 
@@ -111,20 +134,20 @@ public class DietModelImpl implements DietModel {
         database.getDietMeta();
     }
 
-    private void attachActiveDietListener() {
-
-        ValueEventListener activeDietListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                eventBus.post(new ActiveDietChange((String) dataSnapshot.getValue()));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        database.setActiveDietListener(activeDietListener);
-    }
+//    private void attachActiveDietListener() {
+//
+//        ValueEventListener activeDietListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                eventBus.post(new ActiveDietChange((String) dataSnapshot.getValue()));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        };
+//
+//        database.setActiveDietListener(activeDietListener);
+//    }
 }

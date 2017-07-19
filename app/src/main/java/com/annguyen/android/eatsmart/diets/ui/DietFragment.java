@@ -174,7 +174,8 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
     @Override
     public void onSwitchClick(String dietKey, int pos) {
         //TODO: SET ACTIVE OR INACTIVE
-        //presenter.setActive(dietKey, pos);
+        presenter.setActive(dietKey);
+        adapter.setActiveDiet(pos);
     }
 
     @Override

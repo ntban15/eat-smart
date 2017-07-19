@@ -109,7 +109,7 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     @Override
     public void setActiveDiet(String dietKey) {
         Map<String, Object> setActive = new HashMap<>();
-        setActive.put("/users/" + userUID + "/setActive", dietKey);
+        setActive.put("/users/" + userUID + "/activeDiet", dietKey);
         Task setActiveTask = dataRef.updateChildren(setActive);
         if (onCompleteListener != null)
             setActiveTask.addOnCompleteListener(onCompleteListener);
@@ -168,9 +168,9 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
         if (valueEventListener != null) {
             activeDiet.addListenerForSingleValueEvent(valueEventListener);
         }
-        if (activeDietListener != null) {
-            activeDiet.addValueEventListener(activeDietListener);
-        }
+//        if (activeDietListener != null) {
+//            activeDiet.addValueEventListener(activeDietListener);
+//        }
     }
 
     @Override

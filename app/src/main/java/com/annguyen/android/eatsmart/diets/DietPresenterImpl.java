@@ -77,7 +77,12 @@ public class DietPresenterImpl implements DietPresenter {
     public void onActiveDietEvent(ActiveDietChange activeDietChange) {
         String dietKey = activeDietChange.getDietKey();
         if (dietKey != null) {
-            dietView.setActiveDiet(dietKey);
+            //dietView.setActiveDiet(dietKey);
         }
+    }
+
+    @Override
+    public void setActive(String dietKey) {
+        dietModel.setActive(dietKey);
     }
 }

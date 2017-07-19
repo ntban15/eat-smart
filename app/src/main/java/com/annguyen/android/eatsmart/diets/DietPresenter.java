@@ -26,4 +26,6 @@ public interface DietPresenter {
 
     @Subscribe
     void onActiveDietEvent(ActiveDietChange activeDietChange);
+
+    void setActive(String dietKey);
 }

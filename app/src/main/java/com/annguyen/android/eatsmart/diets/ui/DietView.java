@@ -25,6 +25,4 @@ public interface DietView {
     void setDietContent(List<Diet> dietList);
 
     void addNewDiet(Diet newDiet);
-
-    void setActiveDiet(String dietKey);
 }
