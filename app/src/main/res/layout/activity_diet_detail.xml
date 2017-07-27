@@ -8,98 +8,30 @@
     tools:context="com.annguyen.android.eatsmart.dietdetails.DietDetailActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/diet_detail_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            app:layout_scrollFlags="enterAlways"
+            app:layout_scrollFlags="enterAlwaysCollapsed"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
         </android.support.v7.widget.Toolbar>
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/diet_detail_tab_layout"
+            app:layout_scrollFlags="enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"/>
+
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/diet_detail_pager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <TextView
-            android:id="@+id/txt_diet_detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
-            android:text="@string/detail_diet_name"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-
-        <EditText
-            android:id="@+id/edit_diet_detail_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_diet_detail_name"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"/>
-
-        <TextView
-            android:id="@+id/txt_diet_detail_type"
-            android:layout_below="@id/edit_diet_detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/diet_detail_type"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-
-        <Spinner
-            android:id="@+id/spin_detail_diet_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_diet_detail_type"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
-
-        <TextView
-            android:id="@+id/txt_diet_detail_exclude"
-            android:layout_below="@id/spin_detail_diet_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/diet_detail_excluded"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/diet_detail_excl_list"
-            android:layout_below="@id/txt_diet_detail_exclude"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/int_layout_diet_detail_excl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/diet_detail_excl_list"
-            android:layout_marginStart="8dp">
-
-            <EditText
-                android:minWidth="110dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Enter ingredient"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/diet_detail_excl_list"
-            android:layout_toEndOf="@id/int_layout_diet_detail_excl"
-            style="@style/Base.Widget.AppCompat.Button.Colored"
-            android:text="@string/add"/>
-
-    </RelativeLayout>
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
 </android.support.design.widget.CoordinatorLayout>

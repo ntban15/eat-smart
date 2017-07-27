@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.annguyen.android.eatsmart.EatSmartApp;
 import com.annguyen.android.eatsmart.R;
+import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.adapters.DietListAdapter;
 import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
@@ -168,7 +169,9 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
 
     @Override
     public void OnItemClick(String dietKey, int pos) {
-        //TODO: START NEW DIET DETAIL ACTIVITY
+        Intent goToDetail = new Intent(this.getContext(), DietDetailActivity.class);
+        goToDetail.putExtra("dietKey", dietKey);
+        startActivity(goToDetail);
     }
 
     @Override

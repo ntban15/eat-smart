@@ -8,4 +8,12 @@
     <color name="color_secondary_light">#5df2d6</color>
     <color name="text_primary">#000000</color>
     <color name="text_secondary">#000000</color>
+
+    <color name="circle_rim_ok">#b2dfdb</color>
+    <color name="circle_bar_ok">#00bfa5</color>
+    <color name="circle_rim_below">#ffecb3</color>
+    <color name="circle_bar_below">#ffab00</color>
+    <color name="circle_rim_above">#ffccbc</color>
+    <color name="circle_bar_above">#dd2c00</color>
+    <color name="circle_nah">#c7c7c7</color>
 </resources>
