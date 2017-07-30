@@ -3,4 +3,8 @@
     <dimen name="bottom_bar_height">56dp</dimen>
     <dimen name="float_button_margin">16dp</dimen>
     <dimen name="card_view_height">100dp</dimen>
+    <dimen name="small_circle_spacing">6dp</dimen>
+    <dimen name="big_circle_size">150dp</dimen>
+    <dimen name="big_circle_bar">30dp</dimen>
+    <dimen name="big_circle_rim">30dp</dimen>
 </resources>

@@ -2,32 +2,28 @@ package com.annguyen.android.eatsmart.dietdetails.fragments;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.entities.Diet;
-import com.annguyen.android.eatsmart.libs.FirebaseAuthentication;
-import com.annguyen.android.eatsmart.libs.FirebaseRealtimeDatabase;
-import com.annguyen.android.eatsmart.libs.base.RealtimeDatabase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.annguyen.android.eatsmart.entities.Recipe;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import at.grabner.circleprogress.CircleProgressView;
 import at.grabner.circleprogress.TextMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -35,7 +31,8 @@ import butterknife.Unbinder;
  */
 public class DietDetailFragment extends Fragment {
 
-    private static String DIET_KEY = "DIET_KEY";
+    private static String DIET_PARC = "DIET_PARC";
+    private static String RECIPES_PARC = "RECIPES_PARC";
 
     @BindView(R.id.calorie_circle)
     CircleProgressView calorieCircle;
@@ -53,30 +50,25 @@ public class DietDetailFragment extends Fragment {
     CircleProgressView proteinCircle;
     @BindView(R.id.protein_detail_info)
     TextView proteinDetailInfo;
-    @BindView(R.id.btn_edit_detail)
-    Button btnEditDetail;
     @BindView(R.id.diet_detail_progress)
     ProgressBar dietDetailProgress;
 
     Unbinder unbinder;
 
-    private String dietKey;
     private Diet currentDiet;
-    private RealtimeDatabase realtimeDatabase;
+    private List<Recipe> recipeList;
     private int curCal = 0;
     private int curFat = 0;
     private int curCarb = 0;
     private int curProtein = 0;
 
-    public static DietDetailFragment newInstance(String dietKey) {
-
-        DietDetailFragment detailFragment = new DietDetailFragment();
-
-        Bundle dietDetails = new Bundle();
-        dietDetails.putString(DIET_KEY, dietKey);
-        detailFragment.setArguments(dietDetails);
-
-        return detailFragment;
+    public static DietDetailFragment newInstance(Parcelable dietParc, Parcelable[] recipesParc) {
+        DietDetailFragment instance = new DietDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(DIET_PARC, dietParc);
+        args.putParcelableArray(RECIPES_PARC, recipesParc);
+        instance.setArguments(args);
+        return instance;
     }
 
     public DietDetailFragment() {
@@ -91,72 +83,39 @@ public class DietDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_diet_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        // init Firebase
-        initFirebase();
+        // initialize current diet
+        currentDiet = Parcels.unwrap(getArguments().getParcelable(DIET_PARC));
 
-        // initialize current dietKey
-        dietKey = getArguments().getString(DIET_KEY);
+        // init recipe list
+        recipeList = new ArrayList<>();
+        Parcelable[] recipesParc = getArguments().getParcelableArray(RECIPES_PARC);
+        if (recipesParc != null) {
+            Recipe recipeTemp;
+            for (Parcelable recipeParc : recipesParc) {
+                recipeTemp = Parcels.unwrap(recipeParc);
+                recipeList.add(recipeTemp);
+            }
+        }
+
+        // calculate recipes
+        calculateDietInfo();
+
+        // init circles
+        initCircles();
 
         // get current Diet information
-        initCurrentDiet();
+        //initCurrentDiet();
 
         return view;
     }
 
-    private void initFirebase() {
-        realtimeDatabase = new FirebaseRealtimeDatabase(FirebaseDatabase.getInstance(), new FirebaseAuthentication(FirebaseAuth.getInstance()));
-    }
-
-    private void initCurrentDiet() {
-        showProgressBar();
-        hideContent();
-
-        ValueEventListener getDietListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                currentDiet = dataSnapshot.getValue(Diet.class);
-                getRecipesInfo();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(DietDetailFragment.this.getContext(), databaseError.toString(), Toast.LENGTH_SHORT)
-                        .show();
-                hideProgressBar();
-                showContent();
-            }
-        };
-
-        realtimeDatabase.setValueListener(getDietListener);
-        realtimeDatabase.getDietDetail(dietKey);
-    }
-
-    private void getRecipesInfo() {
-        ValueEventListener recipesListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot recipe : dataSnapshot.getChildren()) {
-                    curCal += (long) recipe.child("calories").getValue();
-                    curCarb += (long) recipe.child("carbs").getValue();
-                    curFat += (long) recipe.child("fat").getValue();
-                    curProtein += (long) recipe.child("protein").getValue();
-                }
-                showContent();
-                hideProgressBar();
-                initCircles();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(DietDetailFragment.this.getContext(), databaseError.toString(), Toast.LENGTH_SHORT)
-                        .show();
-                hideProgressBar();
-                showContent();
-            }
-        };
-
-        realtimeDatabase.setValueListener(recipesListener);
-        realtimeDatabase.getDietRecipes(dietKey);
+    private void calculateDietInfo() {
+        for (Recipe recipe : recipeList) {
+            curCal += recipe.getCalories();
+            curFat += recipe.getFatValue();
+            curProtein += recipe.getProteinValue();
+            curCarb += recipe.getCarbsValue();
+        }
     }
 
     private void initCircles() {
@@ -231,20 +190,16 @@ public class DietDetailFragment extends Fragment {
     }
 
     private void showContent() {
-        btnEditDetail.setEnabled(true);
+
     }
 
     private void hideContent() {
-        btnEditDetail.setEnabled(false);
+
     }
 
     @Override
     public void onDestroyView() {
         unbinder.unbind();
         super.onDestroyView();
-    }
-
-    @OnClick(R.id.btn_edit_detail)
-    public void onViewClicked() {
     }
 }

@@ -3,6 +3,8 @@ package com.annguyen.android.eatsmart.entities;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Map;
  * Created by annguyen on 6/4/2017.
  */
 
+@Parcel(Parcel.Serialization.BEAN)
 @IgnoreExtraProperties
 public class Diet {
     private String title = "";

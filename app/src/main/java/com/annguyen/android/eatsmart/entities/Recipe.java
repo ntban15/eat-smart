@@ -13,6 +13,10 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.Transient;
+
+@Parcel(Parcel.Serialization.BEAN)
 @IgnoreExtraProperties
 public class Recipe {
 
@@ -111,6 +115,7 @@ public class Recipe {
     private List<String> dishTypes = null;
     @SerializedName("analyzedInstructions")
     @Expose
+    @Transient
     private List<Instruction> instructions = null;
     @SerializedName("usedIngredientCount")
     @Expose
@@ -441,10 +446,12 @@ public class Recipe {
         this.dishTypes = dishTypes;
     }
 
+    @Transient
     public List<Instruction> getInstructions() {
         return instructions;
     }
 
+    @Transient
     public void setInstructions(List<Instruction> instructions) {
         this.instructions = instructions;
     }
@@ -506,15 +513,15 @@ public class Recipe {
     }
 
     public int getFatValue() {
-        String fatValue = fat.replaceAll("![0-9]", "");
+        String fatValue = fat.replaceAll("[^0-9]", "");
         return Integer.valueOf(fatValue);
     }
     public int getCarbsValue() {
-        String carbsValue = carbs.replaceAll("![0-9]", "");
+        String carbsValue = carbs.replaceAll("[^0-9]", "");
         return Integer.valueOf(carbsValue);
     }
     public int getProteinValue() {
-        String proteinValue = protein.replaceAll("![0-9]", "");
+        String proteinValue = protein.replaceAll("[^0-9]", "");
         return Integer.valueOf(proteinValue);
     }
 }

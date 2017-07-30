@@ -4,8 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="@dimen/card_view_height"
     xmlns:tools="http://schemas.android.com/tools"
-    android:foreground="?attr/selectableItemBackground"
-    android:layout_margin="8dp">
+    android:foreground="?attr/selectableItemBackground">
 
     <View
         android:id="@+id/diet_selected_overlay"

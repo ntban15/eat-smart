@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recipe_thumb_img"
+            android:layout_width="170dp"
+            android:layout_height="150dp" />
+
+        <TextView
+            android:layout_margin="4dp"
+            android:id="@+id/recipe_thumb_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipe_thumb_img"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="TITLE"/>
+
+        <TextView
+            android:layout_marginStart="4dp"
+            android:id="@+id/recipe_thumb_ready"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_below="@id/recipe_thumb_title"
+            tools:text="@string/ready_time"/>
+
+        <TextView
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/recipe_thumb_serving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_below="@id/recipe_thumb_ready"
+            tools:text="@string/serving"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/circles_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recipe_thumb_serving"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp">
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/calorie_circle_small"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/small_circle_spacing"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_autoTextColor="true"
+                CircleProgressView:cpv_barColor="@color/circle_bar_ok"
+                CircleProgressView:cpv_rimColor="@color/circle_rim_ok"
+                CircleProgressView:cpv_barWidth="8dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimWidth="8dp"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_textMode="Text"
+                CircleProgressView:cpv_text="Cl"/>
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/fat_circle_small"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/small_circle_spacing"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/circle_bar_ok"
+                CircleProgressView:cpv_rimColor="@color/circle_rim_ok"
+                CircleProgressView:cpv_autoTextColor="true"
+                CircleProgressView:cpv_barWidth="8dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimWidth="8dp"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_textMode="Text"
+                CircleProgressView:cpv_text="Ft"/>
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/carbs_circle_small"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="@dimen/small_circle_spacing"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/circle_bar_ok"
+                CircleProgressView:cpv_rimColor="@color/circle_rim_ok"
+                CircleProgressView:cpv_autoTextColor="true"
+                CircleProgressView:cpv_barWidth="8dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimWidth="8dp"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_textMode="Text"
+                CircleProgressView:cpv_text="Cb"/>
+
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/protein_circle_small"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                CircleProgressView:cpv_autoTextSize="true"
+                CircleProgressView:cpv_barColor="@color/circle_bar_ok"
+                CircleProgressView:cpv_rimColor="@color/circle_rim_ok"
+                CircleProgressView:cpv_autoTextColor="true"
+                CircleProgressView:cpv_barWidth="8dp"
+                CircleProgressView:cpv_innerContourSize="0dp"
+                CircleProgressView:cpv_outerContourSize="0dp"
+                CircleProgressView:cpv_rimWidth="8dp"
+                CircleProgressView:cpv_textScale="1"
+                CircleProgressView:cpv_textMode="Text"
+                CircleProgressView:cpv_text="Pt"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

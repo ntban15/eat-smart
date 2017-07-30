@@ -13,10 +13,12 @@ import java.util.List;
 public class DietDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList;
+    private List<String> titleList;
 
-    public DietDetailPagerAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public DietDetailPagerAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
         this.fragmentList = fragmentList;
+        this.titleList = titleList;
     }
 
     @Override
@@ -27,5 +29,10 @@ public class DietDetailPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return fragmentList.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titleList.get(position);
     }
 }

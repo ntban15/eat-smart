@@ -17,16 +17,16 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/calorie_circle"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/big_circle_size"
+                android:layout_height="@dimen/big_circle_size"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
                 CircleProgressView:cpv_autoTextColor="true"
-                CircleProgressView:cpv_barWidth="20dp"
+                CircleProgressView:cpv_barWidth="@dimen/big_circle_bar"
                 CircleProgressView:cpv_innerContourSize="0dp"
                 CircleProgressView:cpv_outerContourSize="0dp"
-                CircleProgressView:cpv_rimWidth="30dp"
+                CircleProgressView:cpv_rimWidth="@dimen/big_circle_rim"
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
@@ -37,29 +37,28 @@
 
             <TextView
                 android:id="@+id/calorie_detail_info"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/calories_detail"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                CircleProgressView:layout_constraintRight_toRightOf="@+id/calorie_circle"
+                CircleProgressView:layout_constraintRight_toLeftOf="@+id/fat_detail_info"
+                CircleProgressView:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="8dp"
-                CircleProgressView:layout_constraintTop_toBottomOf="@+id/calorie_circle"
-                android:layout_marginRight="40dp"
-                android:layout_marginEnd="40dp" />
+                CircleProgressView:layout_constraintTop_toBottomOf="@+id/calorie_circle" />
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/fat_circle"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/big_circle_size"
+                android:layout_height="@dimen/big_circle_size"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
                 CircleProgressView:cpv_autoTextColor="true"
-                CircleProgressView:cpv_barWidth="20dp"
+                CircleProgressView:cpv_barWidth="@dimen/big_circle_bar"
                 CircleProgressView:cpv_innerContourSize="0dp"
                 CircleProgressView:cpv_outerContourSize="0dp"
-                CircleProgressView:cpv_rimWidth="30dp"
+                CircleProgressView:cpv_rimWidth="@dimen/big_circle_rim"
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
@@ -70,28 +69,28 @@
 
             <TextView
                 android:id="@+id/fat_detail_info"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/fat_detail"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                CircleProgressView:layout_constraintRight_toRightOf="@+id/fat_circle"
-                android:layout_marginRight="40dp"
+                CircleProgressView:layout_constraintRight_toRightOf="parent"
+                CircleProgressView:layout_constraintLeft_toRightOf="@+id/calorie_detail_info"
                 android:layout_marginTop="8dp"
                 CircleProgressView:layout_constraintTop_toBottomOf="@+id/fat_circle" />
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/carbs_circle"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/big_circle_size"
+                android:layout_height="@dimen/big_circle_size"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
                 CircleProgressView:cpv_autoTextColor="true"
-                CircleProgressView:cpv_barWidth="20dp"
+                CircleProgressView:cpv_barWidth="@dimen/big_circle_bar"
                 CircleProgressView:cpv_innerContourSize="0dp"
                 CircleProgressView:cpv_outerContourSize="0dp"
-                CircleProgressView:cpv_rimWidth="30dp"
+                CircleProgressView:cpv_rimWidth="@dimen/big_circle_rim"
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
@@ -102,29 +101,28 @@
 
             <TextView
                 android:id="@+id/carbs_detail_info"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/carb_detail"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                CircleProgressView:layout_constraintRight_toRightOf="@+id/carbs_circle"
-                android:layout_marginTop="9dp"
-                CircleProgressView:layout_constraintTop_toBottomOf="@+id/carbs_circle"
-                android:layout_marginRight="40dp"
-                android:layout_marginEnd="40dp" />
+                CircleProgressView:layout_constraintRight_toLeftOf="@+id/protein_detail_info"
+                CircleProgressView:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="8dp"
+                CircleProgressView:layout_constraintTop_toBottomOf="@+id/carbs_circle" />
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/protein_circle"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="@dimen/big_circle_size"
+                android:layout_height="@dimen/big_circle_size"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
                 CircleProgressView:cpv_autoTextColor="true"
-                CircleProgressView:cpv_barWidth="20dp"
+                CircleProgressView:cpv_barWidth="@dimen/big_circle_bar"
                 CircleProgressView:cpv_innerContourSize="0dp"
                 CircleProgressView:cpv_outerContourSize="0dp"
-                CircleProgressView:cpv_rimWidth="30dp"
+                CircleProgressView:cpv_rimWidth="@dimen/big_circle_rim"
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
@@ -135,70 +133,15 @@
 
             <TextView
                 android:id="@+id/protein_detail_info"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/protein_detail"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                CircleProgressView:layout_constraintLeft_toLeftOf="@+id/protein_circle"
-                android:layout_marginTop="8dp"
-                CircleProgressView:layout_constraintTop_toBottomOf="@+id/protein_circle"
-                android:layout_marginLeft="41dp"
-                android:layout_marginStart="41dp" />
-
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline2"
-                CircleProgressView:layout_constraintGuide_begin="28dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="28dp" />
-
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline3"
-                CircleProgressView:layout_constraintGuide_begin="178dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="178dp" />
-
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline4"
-                CircleProgressView:layout_constraintGuide_begin="206dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="206dp" />
-
-            <android.support.constraint.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline5"
-                CircleProgressView:layout_constraintGuide_begin="356dp"
-                android:orientation="vertical"
-                tools:layout_editor_absoluteY="25dp"
-                tools:layout_editor_absoluteX="356dp" />
-
-            <Button
-                android:id="@+id/btn_edit_detail"
-                android:elegantTextHeight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_diet_details"
-                android:backgroundTint="@color/button_main_color"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="8dp"
-                CircleProgressView:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginRight="8dp"
                 CircleProgressView:layout_constraintRight_toRightOf="parent"
-                CircleProgressView:layout_constraintHorizontal_bias="0.502"
-                android:layout_marginTop="25dp"
-                CircleProgressView:layout_constraintTop_toBottomOf="@+id/protein_detail_info"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                CircleProgressView:layout_constraintLeft_toRightOf="@+id/carbs_detail_info"
+                android:layout_marginTop="8dp"
+                CircleProgressView:layout_constraintTop_toBottomOf="@+id/protein_circle" />
 
             <ProgressBar
                 android:visibility="gone"

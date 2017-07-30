@@ -46,7 +46,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dietdetails.DietDetailActivity"></activity>
+        <activity android:name=".dietdetails.DietDetailActivity"
+            android:parentActivityName=".main.MainActivity">
+        </activity>
     </application>
 
 </manifest>

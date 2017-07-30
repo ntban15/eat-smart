@@ -23,10 +23,12 @@ import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.adapters.DietListAdapter;
 import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
+import com.annguyen.android.eatsmart.diets.decorators.ListItemDecorator;
 import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.login.ui.LoginActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -87,6 +89,7 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
     private void setupRecyclerView() {
         dietList.setAdapter(adapter);
         dietList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        dietList.addItemDecoration(new ListItemDecorator(25));
     }
 
     private void setupInjection() {
