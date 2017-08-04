@@ -32,6 +32,8 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     private OnCompleteListener onCompleteListener;
     private ValueEventListener valueEventListener;
     private ChildEventListener dietMetaListListener;
+    private ValueEventListener dietDetailListener;
+    private ChildEventListener dietRecipesListener;
     private ValueEventListener activeDietListener;
 
     public FirebaseRealtimeDatabase(FirebaseDatabase firebaseDatabase, Authentication authentication) {
@@ -137,8 +139,8 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     @Override
     public void getDietDetail(String dietKey) {
         DatabaseReference dietDetail = dataRef.child("diets").child(dietKey);
-        if (valueEventListener != null)
-            dietDetail.addListenerForSingleValueEvent(valueEventListener);
+        if (dietDetailListener != null)
+            dietDetail.addValueEventListener(dietDetailListener);
     }
 
     @Override
@@ -158,8 +160,8 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
     @Override
     public void getDietRecipes(String dietKey) {
         DatabaseReference dietRecipes = dataRef.child("diet-recipe").child(dietKey);
-        if (valueEventListener != null)
-            dietRecipes.addListenerForSingleValueEvent(valueEventListener);
+        if (dietRecipesListener != null)
+            dietRecipes.addChildEventListener(dietRecipesListener);
     }
 
     @Override
@@ -236,5 +238,31 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
         DatabaseReference activeDiet = dataRef.child("users").child(userUID).child("activeDiet");
         if (valueEventListener != null)
             activeDiet.removeEventListener(valueEventListener);
+    }
+
+    @Override
+    public void setDietDetailListener(Object dietDetailListener) {
+        if (dietDetailListener instanceof ValueEventListener)
+            this.dietDetailListener = (ValueEventListener) dietDetailListener;
+    }
+
+    @Override
+    public void removeDietDetailListener(String dietKey) {
+        DatabaseReference dietDetail = dataRef.child("diets").child(dietKey);
+        if (null != dietDetailListener)
+            dietDetail.removeEventListener(dietDetailListener);
+    }
+
+    @Override
+    public void setDietRecipesListener(Object dietRecipesListener) {
+        if (dietRecipesListener instanceof ChildEventListener)
+            this.dietRecipesListener = (ChildEventListener) dietRecipesListener;
+    }
+
+    @Override
+    public void removeDietRecipesListenter(String dietKey) {
+        DatabaseReference dietRecipes = dataRef.child("diet-recipe").child(dietKey);
+        if (null != dietRecipesListener)
+            dietRecipes.removeEventListener(dietRecipesListener);
     }
 }

@@ -6,7 +6,7 @@ package com.annguyen.android.eatsmart.diets.adapters;
 
 public interface OnDietItemClickListener {
 
-    void OnItemClick(String dietKey, int pos);
+    void onItemClick(String dietKey, int pos);
 
     void OnItemLongClick();
 

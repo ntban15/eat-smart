@@ -4,11 +4,11 @@ package com.annguyen.android.eatsmart.api;
  * Created by annguyen on 6/3/2017.
  */
 
-import java.util.List;
-
 import com.annguyen.android.eatsmart.entities.Recipe;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class SearchComplexResponse {
 

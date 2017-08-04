@@ -2,8 +2,6 @@ package com.annguyen.android.eatsmart.diets.events;
 
 import com.annguyen.android.eatsmart.entities.Diet;
 
-import java.util.List;
-
 /**
  * Created by annguyen on 6/27/2017.
  */

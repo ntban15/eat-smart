@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import com.annguyen.android.eatsmart.EatSmartApp;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
+import com.annguyen.android.eatsmart.dietdetails.fragments.EditDietDialog;
 import com.annguyen.android.eatsmart.diets.DietPresenter;
 import com.annguyen.android.eatsmart.diets.adapters.DietListAdapter;
 import com.annguyen.android.eatsmart.diets.adapters.OnDietItemClickListener;
@@ -28,7 +29,8 @@ import com.annguyen.android.eatsmart.diets.di.DietFragmentComponent;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.login.ui.LoginActivity;
 
-import java.util.ArrayList;
+import org.parceler.Parcels;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,6 +42,8 @@ import butterknife.Unbinder;
 
 
 public class DietFragment extends Fragment implements DietView, OnDietItemClickListener {
+
+    private static String CREATE_DIET = "Create diet";
 
     @BindView(R.id.container_diet)
     CoordinatorLayout containerDiet;
@@ -167,11 +171,13 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
 
     @OnClick(R.id.create_diet)
     void onCreateDiet() {
-
+        Diet newDiet = new Diet();
+        EditDietDialog editDietDialog = EditDietDialog.newInstance(Parcels.wrap(newDiet), CREATE_DIET);
+        editDietDialog.show(getChildFragmentManager(), CREATE_DIET);
     }
 
     @Override
-    public void OnItemClick(String dietKey, int pos) {
+    public void onItemClick(String dietKey, int pos) {
         Intent goToDetail = new Intent(this.getContext(), DietDetailActivity.class);
         goToDetail.putExtra("dietKey", dietKey);
         startActivity(goToDetail);

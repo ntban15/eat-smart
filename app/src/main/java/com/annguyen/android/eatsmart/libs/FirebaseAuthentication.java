@@ -1,7 +1,5 @@
 package com.annguyen.android.eatsmart.libs;
 
-import android.util.Log;
-
 import com.annguyen.android.eatsmart.libs.base.Authentication;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FacebookAuthProvider;

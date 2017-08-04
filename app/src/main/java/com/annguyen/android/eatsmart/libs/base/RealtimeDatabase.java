@@ -2,7 +2,6 @@ package com.annguyen.android.eatsmart.libs.base;
 
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +39,12 @@ public interface RealtimeDatabase {
     void setActiveDietListener(Object activeDietListener);
 
     void removeActiveDietListener();
+
+    void setDietDetailListener(Object currentDietListener);
+
+    void removeDietDetailListener(String dietKey);
+
+    void setDietRecipesListener(Object dietRecipesListener);
+
+    void removeDietRecipesListenter(String dietKey);
 }

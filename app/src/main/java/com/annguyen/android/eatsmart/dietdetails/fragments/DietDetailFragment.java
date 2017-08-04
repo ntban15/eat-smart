@@ -2,7 +2,6 @@ package com.annguyen.android.eatsmart.dietdetails.fragments;
 
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -12,10 +11,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.annguyen.android.eatsmart.R;
+import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +29,7 @@ import butterknife.Unbinder;
  */
 public class DietDetailFragment extends Fragment {
 
-    private static String DIET_PARC = "DIET_PARC";
-    private static String RECIPES_PARC = "RECIPES_PARC";
+    private boolean isCreated = false;
 
     @BindView(R.id.calorie_circle)
     CircleProgressView calorieCircle;
@@ -57,24 +54,18 @@ public class DietDetailFragment extends Fragment {
 
     private Diet currentDiet;
     private List<Recipe> recipeList;
-    private int curCal = 0;
-    private int curFat = 0;
-    private int curCarb = 0;
-    private int curProtein = 0;
+    private int curCal;
+    private int curFat;
+    private int curCarb;
+    private int curProtein;
 
-    public static DietDetailFragment newInstance(Parcelable dietParc, Parcelable[] recipesParc) {
-        DietDetailFragment instance = new DietDetailFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(DIET_PARC, dietParc);
-        args.putParcelableArray(RECIPES_PARC, recipesParc);
-        instance.setArguments(args);
-        return instance;
+    public static DietDetailFragment newInstance() {
+        return new DietDetailFragment();
     }
 
     public DietDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,19 +74,11 @@ public class DietDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_diet_detail, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        // initialize current diet
-        currentDiet = Parcels.unwrap(getArguments().getParcelable(DIET_PARC));
+        // prepare data
+        initData();
 
-        // init recipe list
-        recipeList = new ArrayList<>();
-        Parcelable[] recipesParc = getArguments().getParcelableArray(RECIPES_PARC);
-        if (recipesParc != null) {
-            Recipe recipeTemp;
-            for (Parcelable recipeParc : recipesParc) {
-                recipeTemp = Parcels.unwrap(recipeParc);
-                recipeList.add(recipeTemp);
-            }
-        }
+        // mark fragment as created
+        isCreated = true;
 
         // calculate recipes
         calculateDietInfo();
@@ -103,13 +86,43 @@ public class DietDetailFragment extends Fragment {
         // init circles
         initCircles();
 
-        // get current Diet information
-        //initCurrentDiet();
-
         return view;
     }
 
+    private void initData() {
+        // initialize current diet
+        if (null == currentDiet) {
+            currentDiet = new Diet();
+            currentDiet.setDietKey(DietDetailActivity.DIET_DUMMY);
+        }
+
+        // init recipe list
+        if (null == recipeList)
+            recipeList = new ArrayList<>();
+    }
+
+    public void newData(Diet newDiet, Recipe recipe) {
+        if (null != newDiet)
+            currentDiet = newDiet;
+        if (null != recipe) {
+            if (null == recipeList)
+                recipeList = new ArrayList<>();
+            recipeList.add(recipe);
+        }
+
+        if (isCreated) {
+            calculateDietInfo();
+            initCircles();
+        }
+    }
+
     private void calculateDietInfo() {
+        //reset values
+        curCal = 0;
+        curFat = 0;
+        curProtein = 0;
+        curCarb = 0;
+
         for (Recipe recipe : recipeList) {
             curCal += recipe.getCalories();
             curFat += recipe.getFatValue();
@@ -152,7 +165,7 @@ public class DietDetailFragment extends Fragment {
                 setCircleOk(cpv);
             else
                 setCircleAbove(cpv);
-            cpv.setValue(0);
+            //cpv.setValue(0);
             cpv.setValueAnimated(current);
         }
         else

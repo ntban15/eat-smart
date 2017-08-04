@@ -2,19 +2,18 @@ package com.annguyen.android.eatsmart.dietdetails.decorators;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
  * Created by annguyen on 30/07/2017.
  */
 
-public class GridLayoutDecorator extends RecyclerView.ItemDecoration {
+public class RecipeGridLayoutDecorator extends RecyclerView.ItemDecoration {
     private int spanCount;
     private int spacing;
     private boolean includeEdge;
 
-    public GridLayoutDecorator(int spanCount, int spacing, boolean includeEdge) {
+    public RecipeGridLayoutDecorator(int spanCount, int spacing, boolean includeEdge) {
         this.spanCount = spanCount;
         this.spacing = spacing;
         this.includeEdge = includeEdge;

@@ -1,6 +1,5 @@
 package com.annguyen.android.eatsmart.diets;
 
-import com.annguyen.android.eatsmart.diets.events.ActiveDietChange;
 import com.annguyen.android.eatsmart.diets.events.DietMetaEvent;
 import com.annguyen.android.eatsmart.diets.events.LogoutEvent;
 import com.annguyen.android.eatsmart.entities.Diet;
@@ -12,9 +11,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by annguyen on 6/4/2017.

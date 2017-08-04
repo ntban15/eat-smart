@@ -18,7 +18,7 @@
     <string name="diet_detail_type">Diet type:</string>
     <string name="diet_detail_excluded">Excluded ingredients: </string>
     <string name="add">Add</string>
-    <string name="calories">CALORIES</string>
+    <string name="calories_edit_diet">Calories:</string>
     <string name="calories_detail">CALORIES\nMax: %1$d\nMin: %2$d</string>
     <string name="fat_detail">FAT\nMax: %1$d\nMin: %2$d</string>
     <string name="carb_detail">CARBS\nMax: %1$d\nMin: %2$d</string>
@@ -26,6 +26,17 @@
     <string name="edit_diet_details">EDIT DIET DETAILS</string>
     <string name="ready_time">Ready time: %1$d min(s)</string>
     <string name="serving">Serving: %1$d</string>
+    <string name="edit_diet">Edit diet</string>
+    <string name="title">Title</string>
+    <string name="name">Name</string>
+    <string name="item">Item</string>
+    <string name="protein_edit_diet">Protein:</string>
+    <string name="min">Min</string>
+    <string name="max">Max</string>
+    <string name="fat_edit_diet">Fat:</string>
+    <string name="carbs_edit_diet">Carbs:</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string-array name="diet_type_list">
         <item>Pescetarian</item>
         <item>Lacto vegetarian</item>

@@ -4,10 +4,6 @@ package com.annguyen.android.eatsmart.entities;
  * Created by annguyen on 6/3/2017.
  */
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.gson.annotations.Expose;
@@ -15,6 +11,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 import org.parceler.Transient;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Parcel(Parcel.Serialization.BEAN)
 @IgnoreExtraProperties
@@ -138,6 +138,11 @@ public class Recipe {
     @SerializedName("carbs")
     @Expose
     private String carbs;
+
+    @Exclude
+    public boolean equals(Recipe recipe) {
+        return this.id == recipe.id;
+    }
 
     @Exclude
     public Map<String, Object> toFullMap() {

@@ -6,6 +6,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,13 @@ public class Diet {
         result.put("dietType", dietType);
         result.put("excludedIngredients", excludedIngredients);
         return result;
+    }
+
+    @Exclude
+    public List<String> getExcls() {
+        if (excludedIngredients.isEmpty())
+            return new ArrayList<>();
+        return Arrays.asList(excludedIngredients.split(","));
     }
 
     public String getTitle() {

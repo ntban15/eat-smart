@@ -39,6 +39,21 @@ public class DietRecipeListAdapter extends RecyclerView.Adapter<DietRecipeListAd
         this.recipeList.addAll(recipeList);
     }
 
+    public void onDietChanged(Diet newDiet) {
+        curDiet = newDiet;
+        notifyDataSetChanged();
+    }
+
+//    public void modifyRecipe(Recipe newRecipe) {
+//        for (int i = 0; i < recipeList.size(); ++i) {
+//            if (recipeList.get(i).equals(newRecipe)) {
+//                recipeList.set(i, newRecipe);
+//                notifyItemChanged(i);
+//                break;
+//            }
+//        }
+//    }
+
     public void addRecipe(Recipe recipe) {
         recipeList.add(recipe);
         notifyItemInserted(recipeList.size() - 1);

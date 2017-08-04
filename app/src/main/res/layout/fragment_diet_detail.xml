@@ -17,8 +17,8 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/calorie_circle"
-                android:layout_width="@dimen/big_circle_size"
-                android:layout_height="@dimen/big_circle_size"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
@@ -30,10 +30,11 @@
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
+                CircleProgressView:cpv_value="0"
                 CircleProgressView:layout_constraintRight_toLeftOf="@+id/fat_circle"
                 CircleProgressView:layout_constraintLeft_toLeftOf="parent"
                 CircleProgressView:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/calorie_detail_info"
@@ -49,8 +50,8 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/fat_circle"
-                android:layout_width="@dimen/big_circle_size"
-                android:layout_height="@dimen/big_circle_size"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
@@ -62,10 +63,11 @@
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
+                CircleProgressView:cpv_value="0"
                 CircleProgressView:layout_constraintRight_toRightOf="parent"
                 CircleProgressView:layout_constraintLeft_toRightOf="@+id/calorie_circle"
                 CircleProgressView:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/fat_detail_info"
@@ -81,8 +83,8 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/carbs_circle"
-                android:layout_width="@dimen/big_circle_size"
-                android:layout_height="@dimen/big_circle_size"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
@@ -94,7 +96,8 @@
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
-                android:layout_marginTop="13dp"
+                CircleProgressView:cpv_value="0"
+                android:layout_marginTop="27dp"
                 CircleProgressView:layout_constraintTop_toBottomOf="@+id/calorie_detail_info"
                 CircleProgressView:layout_constraintLeft_toLeftOf="parent"
                 CircleProgressView:layout_constraintRight_toLeftOf="@+id/protein_circle" />
@@ -113,8 +116,8 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/protein_circle"
-                android:layout_width="@dimen/big_circle_size"
-                android:layout_height="@dimen/big_circle_size"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 CircleProgressView:cpv_autoTextSize="true"
                 CircleProgressView:cpv_barColor="@color/circle_nah"
                 CircleProgressView:cpv_rimColor="@color/circle_nah"
@@ -126,7 +129,8 @@
                 CircleProgressView:cpv_textScale="1"
                 CircleProgressView:cpv_textMode="Text"
                 CircleProgressView:cpv_text="N/A"
-                android:layout_marginTop="13dp"
+                CircleProgressView:cpv_value="0"
+                android:layout_marginTop="27dp"
                 CircleProgressView:layout_constraintTop_toBottomOf="@+id/fat_detail_info"
                 CircleProgressView:layout_constraintRight_toRightOf="parent"
                 CircleProgressView:layout_constraintLeft_toRightOf="@+id/carbs_circle" />

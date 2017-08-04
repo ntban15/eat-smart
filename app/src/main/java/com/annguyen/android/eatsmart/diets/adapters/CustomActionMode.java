@@ -1,6 +1,5 @@
 package com.annguyen.android.eatsmart.diets.adapters;
 
-import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
