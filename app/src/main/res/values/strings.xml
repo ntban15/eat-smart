@@ -14,4 +14,8 @@
     <string name="diet_type">Diet type: %s</string>
     <string name="excluded_ingredients">Excluded ingredients: %s</string>
     <string name="active">Active</string>
+    <string name="cal">Cal</string>
+    <string name="gfat">gFat</string>
+    <string name="gsugar">gSugar</string>
+    <string name="gcarb">gCarb</string>
 </resources>

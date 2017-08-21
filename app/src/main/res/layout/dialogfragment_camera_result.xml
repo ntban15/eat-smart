@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="10"
             android:textColor="?android:attr/colorPressedHighlight"
             android:textSize="65dp" />
 
@@ -40,7 +39,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
-            android:text=" Cal"
+            android:text="@string/cal"
             android:textSize="25dp" />
     </LinearLayout>
 
@@ -54,14 +53,13 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/fat"
-            android:textSize="65dp"
-            android:text="10" />
+            android:textSize="65dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
-            android:text=" gFat"
+            android:text="@string/gfat"
             android:textSize="25dp" />
     </LinearLayout>
 
@@ -75,14 +73,13 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/sugar"
-            android:textSize="65dp"
-            android:text="10" />
+            android:textSize="65dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
-            android:text=" gSugar"
+            android:text="@string/gsugar"
             android:textSize="25dp" />
     </LinearLayout>
 
@@ -96,14 +93,13 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/carb"
-            android:textSize="65dp"
-            android:text="10" />
+            android:textSize="65dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
-            android:text=" gCarb"
+            android:text="@string/gcarb"
             android:textSize="25dp" />
     </LinearLayout>
     </LinearLayout>

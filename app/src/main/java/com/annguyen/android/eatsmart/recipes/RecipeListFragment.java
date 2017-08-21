@@ -1,4 +1,4 @@
-package com.annguyen.android.eatsmart.recipes.ui;
+package com.annguyen.android.eatsmart.recipes;
 
 
 import android.os.Bundle;

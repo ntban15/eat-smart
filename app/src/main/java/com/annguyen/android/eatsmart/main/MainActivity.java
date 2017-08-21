@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.camera.ui.CameraFragment;
 import com.annguyen.android.eatsmart.diets.ui.DietFragment;
-import com.annguyen.android.eatsmart.recipes.ui.RecipeListFragment;
+import com.annguyen.android.eatsmart.recipes.RecipeListFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
