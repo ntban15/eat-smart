@@ -139,7 +139,7 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClick(diet.getDietKey(), pos);
+                    listener.onItemClick(diet.getDietKey(), diet.isActive(), pos);
                 }
             });
 

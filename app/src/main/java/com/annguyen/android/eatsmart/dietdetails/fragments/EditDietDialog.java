@@ -12,6 +12,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -87,6 +89,15 @@ public class EditDietDialog extends DialogFragment implements OnExclClickListene
         args.putString(DIALOG_TITLE, title);
         editDietDialog.setArguments(args);
         return editDietDialog;
+    }
+
+    @Override
+    public void onResume() {
+//        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
+//        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+//        getDialog().getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+        super.onResume();
     }
 
     @NonNull
@@ -284,6 +295,8 @@ public class EditDietDialog extends DialogFragment implements OnExclClickListene
         switch (view.getId()) {
             case R.id.btn_add_excl_item: {
                 String added = editDietExlc.getText().toString();
+                if (added.isEmpty())
+                        return;
                 editDietExlc.setText(null);
                 exclAdapter.addItem(added);
                 editDietExcludedList.scrollToPosition(exclAdapter.getItemCount() - 1);

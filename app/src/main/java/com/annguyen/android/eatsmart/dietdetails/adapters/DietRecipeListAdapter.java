@@ -12,9 +12,13 @@ import android.widget.TextView;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;
+import com.annguyen.android.eatsmart.libs.adapters.SelectableAdapter;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import at.grabner.circleprogress.CircleProgressView;
@@ -25,14 +29,17 @@ import butterknife.ButterKnife;
  * Created by annguyen on 29/07/2017.
  */
 
-public class DietRecipeListAdapter extends RecyclerView.Adapter<DietRecipeListAdapter.DietViewHolder> {
+public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapter.DietViewHolder> {
 
     private List<Recipe> recipeList;
     private ImageLoader imageLoader;
     private Context context;
     private Diet curDiet;
+    private OnRecipeClickListener listener;
 
-    public DietRecipeListAdapter(ImageLoader imageLoader, Diet curDiet, List<Recipe> recipeList) {
+    public DietRecipeListAdapter(ImageLoader imageLoader, Diet curDiet, List<Recipe> recipeList,
+                                 OnRecipeClickListener listener) {
+        this.listener = listener;
         this.recipeList = new ArrayList<>();
         this.imageLoader = imageLoader;
         this.curDiet = curDiet;
@@ -64,6 +71,52 @@ public class DietRecipeListAdapter extends RecyclerView.Adapter<DietRecipeListAd
         notifyItemRemoved(position);
     }
 
+    /**
+     SOURCE: https://enoent.fr/blog/2015/01/18/recyclerview-basics/
+     */
+    public void removeItems(List<Integer> positions) {
+        // Reverse-sort the list
+        Collections.sort(positions, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer lhs, Integer rhs) {
+                return rhs - lhs;
+            }
+        });
+
+        // Split the list in ranges
+        while (!positions.isEmpty()) {
+            if (positions.size() == 1) {
+                removeRecipe(positions.get(0));
+                positions.remove(0);
+            } else {
+                int count = 1;
+                while (positions.size() > count && positions.get(count).equals(positions.get(count - 1) - 1)) {
+                    ++count;
+                }
+
+                if (count == 1) {
+                    removeRecipe(positions.get(0));
+                } else {
+                    removeRange(positions.get(count - 1), count);
+                }
+
+                for (int i = 0; i < count; ++i) {
+                    positions.remove(0);
+                }
+            }
+        }
+    }
+
+    /**
+     SOURCE: https://enoent.fr/blog/2015/01/18/recyclerview-basics/
+     */
+    private void removeRange(int positionStart, int itemCount) {
+        for (int i = 0; i < itemCount; ++i) {
+            recipeList.remove(positionStart);
+        }
+        notifyItemRangeRemoved(positionStart, itemCount);
+    }
+
     @Override
     public DietViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (null == context)
@@ -90,11 +143,29 @@ public class DietRecipeListAdapter extends RecyclerView.Adapter<DietRecipeListAd
         checkCircle(holder.fatCircle, curDiet.getMaxFat(), curRecipe.getFatValue());
         checkCircle(holder.carbsCircle, curDiet.getMaxCarbs(), curRecipe.getCarbsValue());
         checkCircle(holder.proCircle, curDiet.getMaxProtein(), curRecipe.getProteinValue());
+
+        //set click listeners
+        holder.setClickListener(listener, curRecipe.getId(), holder.getAdapterPosition());
+
+        //set overlay if recipe is selected
+        holder.selectedOverlay.setVisibility(
+                isSelected(holder.getAdapterPosition()) ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public int getItemCount() {
         return recipeList.size();
+    }
+
+    public Collection<? extends Long> getSelectedRecipeIds() {
+        List<Integer> positions = getSelectedItems();
+        List<Long> recipeIds = new ArrayList<>();
+
+        for (Integer recipe : positions) {
+            recipeIds.add(recipeList.get(recipe).getId());
+        }
+
+        return recipeIds;
     }
 
     class DietViewHolder extends RecyclerView.ViewHolder {
@@ -115,10 +186,32 @@ public class DietRecipeListAdapter extends RecyclerView.Adapter<DietRecipeListAd
         CircleProgressView carbsCircle;
         @BindView(R.id.protein_circle_small)
         CircleProgressView proCircle;
+        @BindView(R.id.recipe_selected_overlay)
+        View selectedOverlay;
+
+        private View itemView;
 
         public DietViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.itemView = itemView;
+        }
+
+        public void setClickListener(final OnRecipeClickListener listener, final long id, final int pos) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onRecipeClick(id, pos);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    listener.onRecipeLongClick(pos);
+                    return false;
+                }
+            });
         }
     }
 

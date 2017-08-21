@@ -116,6 +116,12 @@ public class DietDetailFragment extends Fragment {
         }
     }
 
+    public void removeRecipe(Recipe removedRecipe) {
+        recipeList.remove(removedRecipe);
+        calculateDietInfo();
+        initCircles();
+    }
+
     private void calculateDietInfo() {
         //reset values
         curCal = 0;

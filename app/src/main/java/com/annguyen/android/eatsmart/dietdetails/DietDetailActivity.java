@@ -1,15 +1,20 @@
 package com.annguyen.android.eatsmart.dietdetails;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.dietdetails.adapters.DietDetailPagerAdapter;
@@ -21,6 +26,7 @@ import com.annguyen.android.eatsmart.entities.Recipe;
 import com.annguyen.android.eatsmart.libs.FirebaseAuthentication;
 import com.annguyen.android.eatsmart.libs.FirebaseRealtimeDatabase;
 import com.annguyen.android.eatsmart.libs.base.RealtimeDatabase;
+import com.annguyen.android.eatsmart.main.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +38,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +59,7 @@ public class DietDetailActivity extends AppCompatActivity {
 
     private Diet currentDiet;
     private String dietKey;
+    private boolean isActive;
     private List<Recipe> recipes;
 
     private PagerAdapter pagerAdapter;
@@ -78,6 +86,9 @@ public class DietDetailActivity extends AppCompatActivity {
 
         //get diet key
         dietKey = getIntent().getStringExtra("dietKey");
+
+        //get active state
+        isActive = getIntent().getBooleanExtra("isActive", false);
 
         //init first data
         initData();
@@ -161,7 +172,9 @@ public class DietDetailActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Recipe removedRecipe = dataSnapshot.getValue(Recipe.class);
+                recipes.remove(removedRecipe);
+                dietDetailFragment.removeRecipe(removedRecipe);
             }
 
             @Override
@@ -229,10 +242,71 @@ public class DietDetailActivity extends AppCompatActivity {
                 editDietDialog.show(getSupportFragmentManager(), EDIT_DIET);
                 return true;
             }
+            case R.id.edit_delete_diet: {
+                showDeleteAlert();
+                return true;
+            }
+            case R.id.edit_add_dummy: {
+                createDummy();
+                return true;
+            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    private void createDummy() {
+        Recipe newRecipe = new Recipe();
+        //Long id = (long) Math.floor(Math.random() * 10001);
+        long id = 479101;
+        newRecipe.setId(id);
+        newRecipe.setTitle(String.valueOf(id));
+        newRecipe.setImage("http://images.all-free-download.com/images/graphicthumb/chicken_picture_5_167115.jpg");
+        newRecipe.setCalories(100);
+        newRecipe.setCarbs("123g");
+        newRecipe.setFat("50g");
+        newRecipe.setProtein("60g");
+        newRecipe.setServings(2);
+        newRecipe.setReadyInMinutes(15);
+        realtimeDatabase.addRecipeToDiet(dietKey, newRecipe);
+    }
+
+    private void showDeleteAlert() {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete this diet?")
+                .setMessage("All data related to this diet will be removed")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //get list of recipe ids
+                        List<String> recipeIds = new ArrayList<>();
+                        for (Recipe recipe : recipes) {
+                            recipeIds.add(String.valueOf(recipe.getId()));
+                        }
+                        //remove diet detail listener before removing
+                        realtimeDatabase.removeDietDetailListener(dietKey);
+                        realtimeDatabase.removeDietRecipesListenter(dietKey);
+                        //if diet is active -> set inactive
+                        if (isActive)
+                            realtimeDatabase.setActiveDiet(null);
+                        realtimeDatabase.removeDiet(dietKey, recipeIds);
+                        goBackToMain();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {}
+                })
+                .show();
+    }
+
+    private void goBackToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override
@@ -240,5 +314,11 @@ public class DietDetailActivity extends AppCompatActivity {
         realtimeDatabase.removeDietDetailListener(dietKey);
         realtimeDatabase.removeDietRecipesListenter(dietKey);
         super.onDestroy();
+    }
+
+    public void removeRecipes(List<Long> recipeIds) {
+        for (Long recipeId : recipeIds) {
+            realtimeDatabase.removeRecipeFromDiet(dietKey, String.valueOf(recipeId));
+        }
     }
 }

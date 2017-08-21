@@ -92,6 +92,10 @@ public class Recipe {
     @SerializedName("pricePerServing")
     @Expose
     private float pricePerServing;
+    @SerializedName("extendedIngredients")
+    @Expose
+    @Transient
+    private List<ExtendedIngredient> extendedIngredients = null;
     @SerializedName("id")
     @Expose
     private long id;
@@ -113,10 +117,16 @@ public class Recipe {
     @SerializedName("dishTypes")
     @Expose
     private List<String> dishTypes = null;
+    @SerializedName("diets")
+    @Expose
+    private List<String> diets = null;
+    @SerializedName("instructions")
+    @Expose
+    private String instructions;
     @SerializedName("analyzedInstructions")
     @Expose
     @Transient
-    private List<Instruction> instructions = null;
+    private List<Instruction> analyzedInstructions = null;
     @SerializedName("usedIngredientCount")
     @Expose
     private int usedIngredientCount;
@@ -138,10 +148,15 @@ public class Recipe {
     @SerializedName("carbs")
     @Expose
     private String carbs;
+    @SerializedName("nutrition")
+    @Expose
+    @Transient
+    private Nutrition nutrition;
 
     @Exclude
-    public boolean equals(Recipe recipe) {
-        return this.id == recipe.id;
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof Recipe && this.getId() == ((Recipe) o).getId();
     }
 
     @Exclude
@@ -178,7 +193,7 @@ public class Recipe {
         result.put("imageType", imageType);
         result.put("cuisines", cuisines);
         result.put("dishTypes", dishTypes);
-        result.put("instructions", instructions);
+        result.put("analyzedInstructions", analyzedInstructions);
         result.put("usedIngredientCount", usedIngredientCount);
         result.put("missedIngredientCount", missedIngredientCount);
         result.put("likes", likes);
@@ -193,6 +208,7 @@ public class Recipe {
     public Map<String, Object> toMetaMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("title", title);
+        result.put("id", id);
         result.put("readyInMinutes", readyInMinutes);
         result.put("servings", servings);
         result.put("image", image);
@@ -452,13 +468,13 @@ public class Recipe {
     }
 
     @Transient
-    public List<Instruction> getInstructions() {
-        return instructions;
+    public List<Instruction> getAnalyzedInstructions() {
+        return analyzedInstructions;
     }
 
     @Transient
-    public void setInstructions(List<Instruction> instructions) {
-        this.instructions = instructions;
+    public void setAnalyzedInstructions(List<Instruction> analyzedInstructions) {
+        this.analyzedInstructions = analyzedInstructions;
     }
 
     public int getUsedIngredientCount() {
@@ -518,15 +534,57 @@ public class Recipe {
     }
 
     public int getFatValue() {
+        if (null == fat)
+            return 0;
         String fatValue = fat.replaceAll("[^0-9]", "");
         return Integer.valueOf(fatValue);
     }
     public int getCarbsValue() {
+        if (null == carbs)
+            return 0;
         String carbsValue = carbs.replaceAll("[^0-9]", "");
         return Integer.valueOf(carbsValue);
     }
     public int getProteinValue() {
+        if (null == protein)
+            return 0;
         String proteinValue = protein.replaceAll("[^0-9]", "");
         return Integer.valueOf(proteinValue);
+    }
+
+    public List<String> getDiets() {
+        return diets;
+    }
+
+    public void setDiets(List<String> diets) {
+        this.diets = diets;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    @Transient
+    public List<ExtendedIngredient> getExtendedIngredients() {
+        return extendedIngredients;
+    }
+
+    @Transient
+    public void setExtendedIngredients(List<ExtendedIngredient> extendedIngredients) {
+        this.extendedIngredients = extendedIngredients;
+    }
+
+    @Transient
+    public Nutrition getNutrition() {
+        return nutrition;
+    }
+
+    @Transient
+    public void setNutrition(Nutrition nutrition) {
+        this.nutrition = nutrition;
     }
 }

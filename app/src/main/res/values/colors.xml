@@ -16,4 +16,6 @@
     <color name="circle_rim_above">#ffccbc</color>
     <color name="circle_bar_above">#dd2c00</color>
     <color name="circle_nah">#c7c7c7</color>
+
+    <color name="color_selected">#00bfa5</color>
 </resources>

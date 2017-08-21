@@ -7,4 +7,8 @@
     <dimen name="big_circle_size">150dp</dimen>
     <dimen name="big_circle_bar">30dp</dimen>
     <dimen name="big_circle_rim">30dp</dimen>
+    <dimen name="nutri_input_width">75dp</dimen>
+    <dimen name="small_circle_height">35dp</dimen>
+    <dimen name="recipe_detail_nutri_value_size">25sp</dimen>
+    <dimen name="recipe_detail_nutri_text_size">75dp</dimen>
 </resources>

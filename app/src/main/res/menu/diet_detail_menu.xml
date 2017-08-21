@@ -5,5 +5,14 @@
         android:id="@+id/edit_diet"
         android:icon="@drawable/ic_edit_black_24dp"
         android:title="@string/edit_diet"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/edit_delete_diet"
+        android:title="@string/delete"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/edit_add_dummy"
+        android:title="Create dummy recipe"
+        app:showAsAction="never"/>
 </menu>

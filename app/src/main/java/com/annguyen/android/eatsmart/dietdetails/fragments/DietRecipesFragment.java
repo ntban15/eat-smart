@@ -1,22 +1,33 @@
 package com.annguyen.android.eatsmart.dietdetails.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
+import com.annguyen.android.eatsmart.api.RetrofitClient;
 import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
 import com.annguyen.android.eatsmart.dietdetails.adapters.DietRecipeListAdapter;
+import com.annguyen.android.eatsmart.dietdetails.adapters.OnRecipeClickListener;
 import com.annguyen.android.eatsmart.dietdetails.decorators.RecipeGridLayoutDecorator;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;
 import com.annguyen.android.eatsmart.libs.GlideImageLoader;
+import com.annguyen.android.eatsmart.libs.adapters.ActionModeCallback;
+import com.annguyen.android.eatsmart.libs.adapters.OnActionCallbackListener;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
+import com.annguyen.android.eatsmart.recipedetails.RecipeDetailsActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -25,11 +36,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DietRecipesFragment extends Fragment {
+public class DietRecipesFragment extends Fragment implements OnRecipeClickListener, OnActionCallbackListener {
 
     private boolean isCreated = false;
 
@@ -41,6 +55,8 @@ public class DietRecipesFragment extends Fragment {
     private Diet curDiet;
     private List<Recipe> recipeList;
     private DietRecipeListAdapter adapter;
+    private ActionModeCallback modeCallback;
+    private ActionMode actionMode;
 
     public static DietRecipesFragment newInstance() {
         return new DietRecipesFragment();
@@ -62,6 +78,9 @@ public class DietRecipesFragment extends Fragment {
 
         // setup recycler view
         setupRecyclerView();
+
+        // set action mode callback
+        modeCallback = new ActionModeCallback(adapter, this);
 
         // mark fragment as created
         isCreated = true;
@@ -100,7 +119,7 @@ public class DietRecipesFragment extends Fragment {
 
     private void setupRecyclerView() {
         imageLoader = new GlideImageLoader(Glide.with(this));
-        adapter = new DietRecipeListAdapter(imageLoader, curDiet, recipeList);
+        adapter = new DietRecipeListAdapter(imageLoader, curDiet, recipeList, this);
         dietDetailRecipeList.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
@@ -110,7 +129,66 @@ public class DietRecipesFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
+        actionMode = null;
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onRecipeClick(long id, int pos) {
+        if (null != actionMode)
+            toggleSelection(pos);
+        else {
+            if (isConnected()) {
+                Intent recipeDetail = new Intent(getContext(), RecipeDetailsActivity.class);
+                recipeDetail.putExtra(RecipeDetailsActivity.RECIPE_ID, String.valueOf(id));
+                startActivity(recipeDetail);
+            }
+            else {
+                Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onRecipeLongClick(int pos) {
+        if (null == actionMode) {
+            actionMode = ((DietDetailActivity)getActivity()).startSupportActionMode(modeCallback);
+        }
+
+        toggleSelection(pos);
+    }
+
+    private void toggleSelection(int pos) {
+        adapter.toggleSelection(pos);
+        int count = adapter.getSelectedItemCount();
+
+        if (count == 0) {
+            actionMode.finish();
+        } else {
+            actionMode.setTitle(String.valueOf(count));
+            actionMode.invalidate();
+        }
+
+    }
+
+    @Override
+    public void removeItems(List<Integer> positions, List<Long> recipeIds) {
+        adapter.removeItems(positions);
+        ((DietDetailActivity) getActivity()).removeRecipes(recipeIds);
+    }
+
+    @Override
+    public void destroyActionMode() {
+        actionMode = null;
     }
 }

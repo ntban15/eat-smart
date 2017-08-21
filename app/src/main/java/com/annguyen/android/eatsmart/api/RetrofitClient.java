@@ -57,4 +57,9 @@ public class RetrofitClient {
     public SearchComplexService getSearchComplexService() {
         return client.create(SearchComplexService.class);
     }
+
+    //get recipe information
+    public RecipeInformationService getRecipeInformationService() {
+        return client.create(RecipeInformationService.class);
+    }
 }

@@ -177,9 +177,10 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
     }
 
     @Override
-    public void onItemClick(String dietKey, int pos) {
+    public void onItemClick(String dietKey, boolean active, int pos) {
         Intent goToDetail = new Intent(this.getContext(), DietDetailActivity.class);
         goToDetail.putExtra("dietKey", dietKey);
+        goToDetail.putExtra("isActive", active);
         startActivity(goToDetail);
     }
 
