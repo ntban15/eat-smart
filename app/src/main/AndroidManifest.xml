@@ -50,6 +50,7 @@
             android:name=".dietdetails.DietDetailActivity"
             android:parentActivityName=".main.MainActivity"></activity>
         <activity android:name=".recipedetails.RecipeDetailsActivity"></activity>
+        <activity android:name=".camera.ImageProcess"></activity>
     </application>
 
 </manifest>
