@@ -13,27 +13,44 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by annguyen on 6/4/2017.
+ * Created by khoanguyen on 8/19/17.
  */
 
-public class RetrofitClient {
-
+public class RetrofitClientParseIngredient {
     private static final String MASHAPE_BASE_URL =
             "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/";
 
     private Retrofit client;
 
-    public RetrofitClient() {
+    public RetrofitClientParseIngredient() {
 
         //build Interceptor to inject Header into request call
         Interceptor interceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+//                Request originalRequest = chain.request();
+//
+//                HttpUrl originalUrl = originalRequest.url();
+//
+//                HttpUrl newUrl = originalUrl.newBuilder()
+//                        .addQueryParameter("includeNutrition", "false")
+//                        .build();
+//
+//                Request newRequest = originalRequest.newBuilder()
+//                        .url(newUrl)
+//                        .addHeader("X-Mashape-Key", BuildConfig.MASHAPE_KEY)
+//                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+//                        .addHeader("Accept", "application/json")//receive JSON-formatted response
+//                        .build();
+//
+//                return chain.proceed(newRequest);
+
                 Request originalRequest = chain.request();
 
                 //create a new Request with header from original one
                 Request newRequest = originalRequest.newBuilder()
                         .addHeader("X-Mashape-Key", BuildConfig.MASHAPE_KEY)
+                        .addHeader("Content-Type", "application/x-www-form-urlencoded")
                         .addHeader("Accept", "application/json")//receive JSON-formatted response
                         .build();
 
@@ -55,7 +72,7 @@ public class RetrofitClient {
     }
 
     //get searchComplexService
-    public SearchComplexService getSearchComplexService() {
-        return client.create(SearchComplexService.class);
+    public ParseIngredientService getParseIngredientService() {
+        return client.create(ParseIngredientService.class);
     }
 }

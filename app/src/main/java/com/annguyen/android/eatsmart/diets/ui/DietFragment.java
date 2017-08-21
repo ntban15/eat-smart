@@ -161,6 +161,11 @@ public class DietFragment extends Fragment implements DietView, OnDietItemClickL
         adapter.addNewDiet(newDiet);
     }
 
+    @Override
+    public void setActiveDiet(String dietKey) {
+
+    }
+
     @OnClick(R.id.create_diet)
     void onCreateDiet() {
 

@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.annguyen.android.eatsmart.camera.ui.ImageProcess"
     android:orientation="vertical"
-    android:weightSum="10">
-
+    android:weightSum="10"
+    android:id="@+id/root_layout">
 
     <ImageView
         android:layout_width="match_parent"
