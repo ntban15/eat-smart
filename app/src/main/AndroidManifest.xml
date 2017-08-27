@@ -42,18 +42,19 @@
             android:name=".main.MainActivity"
             android:label="@string/app_name">
         </activity>
-        <activity android:name=".login.ui.LoginActivity">
+        <activity android:name=".login.ui.LoginActivity"></activity>
+        <activity
+            android:name=".dietdetails.DietDetailActivity"
+            android:parentActivityName=".main.MainActivity" />
+        <activity android:name=".recipedetails.RecipeDetailsActivity" />
+        <activity android:name=".camera.ImageProcess" />
+        <activity android:name=".onboarding.OnboardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".dietdetails.DietDetailActivity"
-            android:parentActivityName=".main.MainActivity" />
-        <activity android:name=".recipedetails.RecipeDetailsActivity" />
-        <activity android:name=".camera.ImageProcess" />
     </application>
 
 </manifest>
