@@ -18,4 +18,13 @@
     <color name="circle_nah">#c7c7c7</color>
 
     <color name="color_selected">#00bfa5</color>
+
+    <!-- background colors for onboarding -->
+    <color name="background_slide_1">#6da1f0</color>
+    <color name="background_slide_2">#9d79f0</color>
+    <color name="background_slide_3">#eb9560</color>
+
+    <!-- dot colors -->
+    <color name="inactive_dot">#000</color>
+    <color name="active_dot">#FFF</color>
 </resources>

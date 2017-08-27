@@ -11,4 +11,11 @@
     <dimen name="small_circle_height">35dp</dimen>
     <dimen name="recipe_detail_nutri_value_size">25sp</dimen>
     <dimen name="recipe_detail_nutri_text_size">75dp</dimen>
+
+    <!-- dimension declaration for onboarding -->
+    <dimen name="dots_height">30dp</dimen>
+    <dimen name="dots_margin_bottom">20dp</dimen>
+    <dimen name="slide_title">30dp</dimen>
+    <dimen name="slide_desc">20dp</dimen>
+    <dimen name="desc_padding">40dp</dimen>
 </resources>
