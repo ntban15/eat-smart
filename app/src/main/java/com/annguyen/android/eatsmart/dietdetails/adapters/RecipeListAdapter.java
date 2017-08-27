@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,21 +30,23 @@ import butterknife.ButterKnife;
  * Created by annguyen on 29/07/2017.
  */
 
-public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapter.DietViewHolder> {
+public class RecipeListAdapter extends SelectableAdapter<RecipeListAdapter.DietViewHolder> {
 
     private List<Recipe> recipeList;
     private ImageLoader imageLoader;
     private Context context;
     private Diet curDiet;
     private OnRecipeClickListener listener;
+    private boolean addable;
 
-    public DietRecipeListAdapter(ImageLoader imageLoader, Diet curDiet, List<Recipe> recipeList,
-                                 OnRecipeClickListener listener) {
+    public RecipeListAdapter(ImageLoader imageLoader, Diet curDiet, List<Recipe> recipeList,
+                             OnRecipeClickListener listener, boolean addable) {
         this.listener = listener;
         this.recipeList = new ArrayList<>();
         this.imageLoader = imageLoader;
         this.curDiet = curDiet;
         this.recipeList.addAll(recipeList);
+        this.addable = addable;
     }
 
     public void onDietChanged(Diet newDiet) {
@@ -145,11 +148,27 @@ public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapt
         checkCircle(holder.proCircle, curDiet.getMaxProtein(), curRecipe.getProteinValue());
 
         //set click listeners
-        holder.setClickListener(listener, curRecipe.getId(), holder.getAdapterPosition());
+        holder.setClickListener(listener, curRecipe.getId(), holder.getAdapterPosition(), curRecipe);
 
         //set overlay if recipe is selected
         holder.selectedOverlay.setVisibility(
                 isSelected(holder.getAdapterPosition()) ? View.VISIBLE : View.INVISIBLE);
+
+        //set buttons for adding and removing recipe from diet
+        if (addable) {
+            holder.addToDietBtn.setVisibility(View.VISIBLE);
+//            if (curRecipe.isInDiet()) {
+//                holder.addToDietBtn.setVisibility(View.GONE);
+//                holder.removeFromDietBtn.setVisibility(View.VISIBLE);
+//            }
+//            else {
+//                holder.addToDietBtn.setVisibility(View.VISIBLE);
+//                holder.removeFromDietBtn.setVisibility(View.GONE);
+//            }
+        }
+        else {
+            holder.addToDietBtn.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -166,6 +185,11 @@ public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapt
         }
 
         return recipeIds;
+    }
+
+    public void clearRecipes() {
+        recipeList.clear();
+        notifyDataSetChanged();
     }
 
     class DietViewHolder extends RecyclerView.ViewHolder {
@@ -188,6 +212,10 @@ public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapt
         CircleProgressView proCircle;
         @BindView(R.id.recipe_selected_overlay)
         View selectedOverlay;
+        @BindView(R.id.btn_remove_from_diet)
+        Button removeFromDietBtn;
+        @BindView(R.id.btn_add_to_diet)
+        Button addToDietBtn;
 
         private View itemView;
 
@@ -197,7 +225,8 @@ public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapt
             this.itemView = itemView;
         }
 
-        public void setClickListener(final OnRecipeClickListener listener, final long id, final int pos) {
+        public void setClickListener(final OnRecipeClickListener listener, final long id,
+                                     final int pos, final Recipe recipe) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -212,6 +241,22 @@ public class DietRecipeListAdapter extends SelectableAdapter<DietRecipeListAdapt
                     return false;
                 }
             });
+
+            if (addable) {
+//                removeFromDietBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        listener.onRemoveFromDietClick(id);
+//                    }
+//                });
+
+                addToDietBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onAddToDietClick(recipe);
+                    }
+                });
+            }
         }
     }
 

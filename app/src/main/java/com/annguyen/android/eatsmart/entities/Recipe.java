@@ -154,6 +154,9 @@ public class Recipe {
     private Nutrition nutrition;
 
     @Exclude
+    private boolean isInDiet;
+
+    @Exclude
     @Override
     public boolean equals(Object o) {
         return o instanceof Recipe && this.getId() == ((Recipe) o).getId();
@@ -586,5 +589,13 @@ public class Recipe {
     @Transient
     public void setNutrition(Nutrition nutrition) {
         this.nutrition = nutrition;
+    }
+
+    public boolean isInDiet() {
+        return isInDiet;
+    }
+
+    public void setInDiet(boolean inDiet) {
+        isInDiet = inDiet;
     }
 }

@@ -150,6 +150,29 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btn_remove_from_diet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circles_wrapper"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/remove_btn_color"
+            android:text="@string/remove_from_diet"
+            android:textColor="@android:color/white"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_add_to_diet"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/circles_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:text="@string/add_to_diet"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
     <View

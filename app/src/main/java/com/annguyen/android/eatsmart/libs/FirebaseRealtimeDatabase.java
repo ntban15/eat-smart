@@ -141,6 +141,8 @@ public class FirebaseRealtimeDatabase implements RealtimeDatabase {
         DatabaseReference dietDetail = dataRef.child("diets").child(dietKey);
         if (dietDetailListener != null)
             dietDetail.addValueEventListener(dietDetailListener);
+        if (valueEventListener != null)
+            dietDetail.addListenerForSingleValueEvent(valueEventListener);
     }
 
     @Override

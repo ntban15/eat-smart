@@ -45,6 +45,10 @@
     <string name="carbs">Carbs</string>
     <string name="instructions">Instructions</string>
     <string name="inst_step">Step %1$d</string>
+    <string name="add_to_diet">Add to diet</string>
+    <string name="remove_from_diet">Remove from diet</string>
+    <string name="search_recipe">Search recipe</string>
+    <string name="search_for_recipes">Search for recipes</string>
     <string-array name="diet_type_list">
         <item>Pescetarian</item>
         <item>Lacto vegetarian</item>

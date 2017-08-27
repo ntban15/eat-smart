@@ -16,9 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
-import com.annguyen.android.eatsmart.api.RetrofitClient;
 import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
-import com.annguyen.android.eatsmart.dietdetails.adapters.DietRecipeListAdapter;
+import com.annguyen.android.eatsmart.dietdetails.adapters.RecipeListAdapter;
 import com.annguyen.android.eatsmart.dietdetails.adapters.OnRecipeClickListener;
 import com.annguyen.android.eatsmart.dietdetails.decorators.RecipeGridLayoutDecorator;
 import com.annguyen.android.eatsmart.entities.Diet;
@@ -36,9 +35,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +50,7 @@ public class DietRecipesFragment extends Fragment implements OnRecipeClickListen
     private ImageLoader imageLoader;
     private Diet curDiet;
     private List<Recipe> recipeList;
-    private DietRecipeListAdapter adapter;
+    private RecipeListAdapter adapter;
     private ActionModeCallback modeCallback;
     private ActionMode actionMode;
 
@@ -119,7 +115,7 @@ public class DietRecipesFragment extends Fragment implements OnRecipeClickListen
 
     private void setupRecyclerView() {
         imageLoader = new GlideImageLoader(Glide.with(this));
-        adapter = new DietRecipeListAdapter(imageLoader, curDiet, recipeList, this);
+        adapter = new RecipeListAdapter(imageLoader, curDiet, recipeList, this, false);
         dietDetailRecipeList.setLayoutManager(
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
@@ -166,6 +162,16 @@ public class DietRecipesFragment extends Fragment implements OnRecipeClickListen
         }
 
         toggleSelection(pos);
+    }
+
+    @Override
+    public void onRemoveFromDietClick(long id) {
+        //do nothing
+    }
+
+    @Override
+    public void onAddToDietClick(Recipe recipe) {
+        //do nothing
     }
 
     private void toggleSelection(int pos) {

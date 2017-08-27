@@ -5,7 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.annguyen.android.eatsmart.R;
-import com.annguyen.android.eatsmart.dietdetails.adapters.DietRecipeListAdapter;
+import com.annguyen.android.eatsmart.dietdetails.adapters.RecipeListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +45,8 @@ public class ActionModeCallback implements ActionMode.Callback {
                 // TODO: actually remove items
                 //get list of recipes id
                 List<Long> recipeIds = new ArrayList<>();
-                if (adapter instanceof DietRecipeListAdapter) {
-                    recipeIds.addAll(((DietRecipeListAdapter) adapter).getSelectedRecipeIds());
+                if (adapter instanceof RecipeListAdapter) {
+                    recipeIds.addAll(((RecipeListAdapter) adapter).getSelectedRecipeIds());
                 }
                 listener.removeItems(adapter.getSelectedItems(), recipeIds);
 
