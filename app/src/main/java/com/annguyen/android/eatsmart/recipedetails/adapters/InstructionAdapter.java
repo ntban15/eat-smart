@@ -11,11 +11,8 @@ import android.widget.TextView;
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.entities.Equipment;
 import com.annguyen.android.eatsmart.entities.Ingredient;
-import com.annguyen.android.eatsmart.entities.Instruction;
 import com.annguyen.android.eatsmart.entities.Step;
-import com.annguyen.android.eatsmart.libs.GlideImageLoader;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
-import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 import java.util.List;

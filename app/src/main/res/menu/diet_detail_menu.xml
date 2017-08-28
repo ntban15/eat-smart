@@ -10,9 +10,4 @@
         android:id="@+id/edit_delete_diet"
         android:title="@string/delete"
         app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/edit_add_dummy"
-        android:title="Create dummy recipe"
-        app:showAsAction="never"/>
 </menu>

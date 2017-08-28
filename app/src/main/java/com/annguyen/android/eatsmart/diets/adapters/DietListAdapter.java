@@ -1,5 +1,6 @@
 package com.annguyen.android.eatsmart.diets.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
 
     private List<Diet> dietDataset;
     private OnDietItemClickListener onDietItemClickListener;
+    private Context context;
 
     public DietListAdapter(List<Diet> dietDataset, OnDietItemClickListener onDietItemClickListener) {
         this.dietDataset = dietDataset;
@@ -33,6 +35,7 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View dietItemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.diet_list_item, parent, false);
 
@@ -45,8 +48,10 @@ public class DietListAdapter extends RecyclerView.Adapter<DietListAdapter.Custom
 
         //init view in holder
         holder.dietTitle.setText(curDiet.getTitle());
-        holder.dietExclude.setText(curDiet.getExcludedIngredients());
-        holder.dietType.setText(curDiet.getDietType());
+        holder.dietExclude.setText(String.format(context.getString(R.string.excluded_ingredients),
+                curDiet.getExcludedIngredients()));
+        holder.dietType.setText(String.format(context.getString(R.string.diet_type),
+                curDiet.getDietType()));
 
         //check if diet is active
         if (curDiet.isActive()) {

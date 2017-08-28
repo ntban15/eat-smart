@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.dietdetails.adapters.DietDetailPagerAdapter;
@@ -38,7 +36,6 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -246,30 +243,10 @@ public class DietDetailActivity extends AppCompatActivity {
                 showDeleteAlert();
                 return true;
             }
-            case R.id.edit_add_dummy: {
-                createDummy();
-                return true;
-            }
             default: {
                 return super.onOptionsItemSelected(item);
             }
         }
-    }
-
-    private void createDummy() {
-        Recipe newRecipe = new Recipe();
-        //Long id = (long) Math.floor(Math.random() * 10001);
-        long id = 479101;
-        newRecipe.setId(id);
-        newRecipe.setTitle(String.valueOf(id));
-        newRecipe.setImage("http://images.all-free-download.com/images/graphicthumb/chicken_picture_5_167115.jpg");
-        newRecipe.setCalories(100);
-        newRecipe.setCarbs("123g");
-        newRecipe.setFat("50g");
-        newRecipe.setProtein("60g");
-        newRecipe.setServings(2);
-        newRecipe.setReadyInMinutes(15);
-        realtimeDatabase.addRecipeToDiet(dietKey, newRecipe);
     }
 
     private void showDeleteAlert() {

@@ -18,7 +18,6 @@ import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.api.ParseIngredientResponse;
 import com.annguyen.android.eatsmart.api.RetrofitClientParseIngredient;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import clarifai2.api.ClarifaiBuilder;

@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.dietdetails.DietDetailActivity;
-import com.annguyen.android.eatsmart.dietdetails.adapters.RecipeListAdapter;
 import com.annguyen.android.eatsmart.dietdetails.adapters.OnRecipeClickListener;
+import com.annguyen.android.eatsmart.dietdetails.adapters.RecipeListAdapter;
 import com.annguyen.android.eatsmart.dietdetails.decorators.RecipeGridLayoutDecorator;
 import com.annguyen.android.eatsmart.entities.Diet;
 import com.annguyen.android.eatsmart.entities.Recipe;

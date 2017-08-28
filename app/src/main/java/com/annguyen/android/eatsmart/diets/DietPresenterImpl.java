@@ -44,8 +44,8 @@ public class DietPresenterImpl implements DietPresenter {
 
     @Override
     public void initUI() {
-        dietView.hideContent();
-        dietView.showProgressBar();
+        //dietView.hideContent();
+        //dietView.showProgressBar();
         dietModel.getDietsMeta();
     }
 
@@ -58,8 +58,8 @@ public class DietPresenterImpl implements DietPresenter {
     @Subscribe
     @Override
     public void onDietMetaEvent(DietMetaEvent dietMetaEvent) {
-        dietView.showContent();
-        dietView.hideProgressBar();
+        //dietView.showContent();
+        //dietView.hideProgressBar();
         switch (dietMetaEvent.getEventCode()) {
             case DietMetaEvent.DIET_META_SUCCESS: {
                 dietView.addNewDiet(dietMetaEvent.getNewDiet());

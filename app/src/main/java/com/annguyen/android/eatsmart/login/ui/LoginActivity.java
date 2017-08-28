@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
@@ -13,6 +14,8 @@ import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.login.LoginPresenter;
 import com.annguyen.android.eatsmart.login.di.LoginActivityComponent;
 import com.annguyen.android.eatsmart.main.MainActivity;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -32,6 +35,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     RelativeLayout loginContainer;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.app_icon)
+    ImageView appIcon;
 
     @Inject
     LoginPresenter presenter;
@@ -43,6 +48,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        Glide.with(this).load(R.drawable.app_logo).into(appIcon);
+
         setupInjection();
         presenter.start();
 

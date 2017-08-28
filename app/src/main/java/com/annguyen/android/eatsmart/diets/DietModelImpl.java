@@ -93,12 +93,12 @@ public class DietModelImpl implements DietModel {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Diet newDiet = dataSnapshot.getValue(Diet.class);
-                    if (newDiet != null) {
-                        newDiet.setDietKey(dataSnapshot.getKey());
-                        if (dataSnapshot.getKey().equals(activeDiet))
-                            newDiet.setActive(true);
-                    }
+                Diet newDiet = dataSnapshot.getValue(Diet.class);
+                if (newDiet != null) {
+                    newDiet.setDietKey(dataSnapshot.getKey());
+                    if (dataSnapshot.getKey().equals(activeDiet))
+                        newDiet.setActive(true);
+                }
                 //if get diet is success -> attach listener to active diet
                 //attachActiveDietListener();
                 eventBus.post(new DietMetaEvent(DietMetaEvent.DIET_META_SUCCESS, null, newDiet));

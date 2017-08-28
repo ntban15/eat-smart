@@ -2,6 +2,7 @@ package com.annguyen.android.eatsmart.libs;
 
 import android.widget.ImageView;
 
+import com.annguyen.android.eatsmart.R;
 import com.annguyen.android.eatsmart.libs.base.ImageLoader;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -30,12 +31,14 @@ public class GlideImageLoader implements ImageLoader {
     public void load(ImageView imageView, String imageUrl) {
         if (requestListener == null) {
             glideRequestManager.load(imageUrl)
+                    .apply(RequestOptions.placeholderOf(R.drawable.food_placeholder))
                     .apply(RequestOptions.centerCropTransform())
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                     .into(imageView);
         }
         else {
             glideRequestManager.load(imageUrl)
+                    .apply(RequestOptions.placeholderOf(R.drawable.food_placeholder))
                     .apply(RequestOptions.centerCropTransform())
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                     .listener(requestListener)

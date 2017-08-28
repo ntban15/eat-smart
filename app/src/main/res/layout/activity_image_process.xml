@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.annguyen.android.eatsmart.camera.ui.ImageProcess"
+    tools:context="com.annguyen.android.eatsmart.camera.ImageProcess"
     android:orientation="vertical"
     android:weightSum="10"
     android:id="@+id/root_layout">
@@ -29,8 +28,7 @@
             android:id="@+id/discardBtn"
             android:text="@string/discard"
             android:layout_weight="1"
-            android:textSize="35sp"
-            android:background="#9E9E9E"
+            android:backgroundTint="@color/btn_discard"
             android:textColor="#000" />
 
         <Button
@@ -39,8 +37,7 @@
             android:id="@+id/analyzeBtn"
             android:text="@string/analyze"
             android:layout_weight="1"
-            android:textSize="35sp"
-            android:background="#43A047"
+            android:backgroundTint="@color/btn_analyze"
             android:textColor="#FFFF"/>
     </LinearLayout>
 
