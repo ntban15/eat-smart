@@ -64,11 +64,11 @@
         android:layout_height="wrap_content"
         android:text="@string/fat_edit_diet"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_diet_calories"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="@+id/edit_diet_calories"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/edit_diet_calories" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/edit_diet_excluded_list"
@@ -269,7 +269,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/edit_diet_fat"
-        app:layout_constraintRight_toRightOf="@+id/edit_diet_fat" />
+        app:layout_constraintRight_toLeftOf="@+id/edit_fat_min_container"
+        android:layout_marginRight="14dp" />
 
     <TextView
         android:id="@+id/edit_diet_protein"
@@ -277,9 +278,10 @@
         android:layout_height="wrap_content"
         android:text="@string/protein_edit_diet"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toRightOf="@+id/edit_diet_carbs"
         android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/edit_diet_carbs"
-        app:layout_constraintRight_toRightOf="@+id/edit_diet_carbs" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_diet_carbs" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/edit_diet_name_container"

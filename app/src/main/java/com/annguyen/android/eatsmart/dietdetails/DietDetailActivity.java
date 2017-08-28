@@ -201,7 +201,7 @@ public class DietDetailActivity extends AppCompatActivity {
         fragmentList.add(dietDetailFragment);
         fragmentList.add(dietRecipesFragment);
         titleList.add("Overview");
-        titleList.add("Diets");
+        titleList.add("Recipes");
     }
 
     private void setupViewPager() {

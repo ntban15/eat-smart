@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.annguyen.android.eatsmart.R;
+import com.annguyen.android.eatsmart.libs.GlideImageLoader;
+import com.annguyen.android.eatsmart.libs.base.ImageLoader;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 public class ImageProcess extends AppCompatActivity {
 
@@ -27,17 +32,22 @@ public class ImageProcess extends AppCompatActivity {
         bytes = intent.getByteArrayExtra("image_bytes");
 
         //get bytes array sent through the intent and load it to the image view
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         imageView = (ImageView) findViewById(R.id.imagePreview);
+        Glide.with(this).load(bytes)
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(imageView);
 
-        //bytes arrays of images taken by the camera have reverse orientation.
-        //so we have to rotate it back to right orientation
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmp,bmp.getWidth(),bmp.getHeight(),true);
-        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
-
-        imageView.setImageBitmap(rotatedBitmap);
+//        //bytes arrays of images taken by the camera have reverse orientation.
+//        //so we have to rotate it back to right orientation
+//        Matrix matrix = new Matrix();
+//        matrix.postRotate(90);
+//        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmp,bmp.getWidth(),bmp.getHeight(),true);
+//        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
+//
+//        imageView.setImageBitmap(rotatedBitmap);
 
         //if the discard button clicked, navigate back to the camera fragment
         Button discardBtn = (Button) findViewById(R.id.discardBtn);

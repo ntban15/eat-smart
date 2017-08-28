@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.annguyen.android.eatsmart.login.ui.LoginActivity"
-    android:id="@+id/login_activity_container"
-    android:background="@color/color_secondary">
+    android:id="@+id/login_activity_container">
 
     <ImageView
         android:id="@+id/app_icon"

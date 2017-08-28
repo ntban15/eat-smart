@@ -27,20 +27,22 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="20dp"
             android:id="@+id/calories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
-            android:textSize="65dp" />
+            android:textSize="@dimen/result_text_main" />
 
         <TextView
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
             android:text="@string/calories"
-            android:textSize="25dp" />
+            android:textSize="@dimen/result_text_sub" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,14 +55,14 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/fat"
-            android:textSize="65dp" />
+            android:textSize="@dimen/result_text_main" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
             android:text="@string/fat"
-            android:textSize="25dp" />
+            android:textSize="@dimen/result_text_sub" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,14 +75,14 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/sugar"
-            android:textSize="65dp" />
+            android:textSize="@dimen/result_text_main" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
             android:text="Sugar"
-            android:textSize="25dp" />
+            android:textSize="@dimen/result_text_sub" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,14 +95,14 @@
             android:fontFamily="monospace"
             android:textColor="?android:attr/colorPressedHighlight"
             android:id="@+id/carb"
-            android:textSize="65dp" />
+            android:textSize="@dimen/result_text_main" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="#FFFF"
             android:text="@string/carbs"
-            android:textSize="25dp" />
+            android:textSize="@dimen/result_text_sub" />
     </LinearLayout>
     </LinearLayout>
 

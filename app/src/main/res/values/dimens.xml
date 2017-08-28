@@ -18,4 +18,6 @@
     <dimen name="slide_title">30dp</dimen>
     <dimen name="slide_desc">20dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
+    <dimen name="result_text_main">40sp</dimen>
+    <dimen name="result_text_sub">25sp</dimen>
 </resources>
