@@ -9,15 +9,17 @@ This application is developed in cooperation with a classmate for our school-bas
 
 ## Screenshots
 
-<img src="https://i.imgur.com/2A2uOnU.png" width="150">
-<img src="https://i.imgur.com/XWvKiJs.png" width="150">
-<img src="https://i.imgur.com/2JYzjPz.png" width="150">
-<img src="https://i.imgur.com/yh6wILN.png" width="150">
-<img src="https://i.imgur.com/IG1BdOS.png" width="150">
-<img src="https://i.imgur.com/gvGgyAV.png" width="150">
-<img src="https://i.imgur.com/T58atmW.png" width="150">
-<img src="https://i.imgur.com/aQ8BEVP.png" width="150">
-<img src="https://i.imgur.com/fymQQBM.png" width="150">
+<p display="block" margin="auto">
+    <img src="https://i.imgur.com/2A2uOnU.png" width="150">
+    <img src="https://i.imgur.com/XWvKiJs.png" width="150">
+    <img src="https://i.imgur.com/2JYzjPz.png" width="150">
+    <img src="https://i.imgur.com/yh6wILN.png" width="150">
+    <img src="https://i.imgur.com/IG1BdOS.png" width="150">
+    <img src="https://i.imgur.com/gvGgyAV.png" width="150">
+    <img src="https://i.imgur.com/T58atmW.png" width="150">
+    <img src="https://i.imgur.com/aQ8BEVP.png" width="150">
+    <img src="https://i.imgur.com/fymQQBM.png" width="150">
+</p>
 
 ## Features
 - Authentication with Facebook to store diets information
